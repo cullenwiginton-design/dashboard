@@ -511,6 +511,12 @@ function fmtSetlistDate(s) {
   const d=parseDateStr(s); if(!d||isNaN(d)) return s||'';
   return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
 }
+function fmtShowDate(s) {
+  if(!s) return '';
+  // Ticketmaster gives ISO YYYY-MM-DD; render at noon to avoid TZ slips
+  const d=new Date(s+'T12:00:00'); if(isNaN(d)) return s;
+  return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+}
 
 // Sheets I/O
 async function loadFromSheets() {
@@ -723,13 +729,29 @@ document.getElementById('refreshShowsBtn').addEventListener('click',fetchUpcomin
 async function fetchUpcomingShows(){
   if(!artists.length){alert('Add some artists first!');return;}
   const btn=document.getElementById('refreshShowsBtn');btn.disabled=true;btn.textContent='Fetching...';
-  shows=[];const today=new Date();today.setHours(0,0,0,0);
+  shows=[];
   for(const artist of artists){
-    if(!artist.mbid)continue;
     try{
-      const res=await fetch(SHEET_URL+'?action=getShows&mbid='+encodeURIComponent(artist.mbid)+'&cb='+Date.now());
+      const res=await fetch(SHEET_URL+'?action=getUpcoming&name='+encodeURIComponent(artist.name)+'&cb='+Date.now());
       const data=await res.json();
-      (data.setlist||[]).forEach(s=>{const d=parseDateStr(s.eventDate);if(!d||isNaN(d)||d<today)return;shows.push({id:s.id||uid(),artistName:artist.name,artistMbid:artist.mbid,venue:s.venue?.name||'',city:[s.venue?.city?.name,s.venue?.city?.country?.name].filter(Boolean).join(', '),date:s.eventDate,url:s.url||'',status:'none'});});
+      const events=(data._embedded&&data._embedded.events)||[];
+      events.forEach(ev=>{
+        // Only keep events where the artist is actually the attraction (filter loose keyword matches)
+        const attractions=(ev._embedded&&ev._embedded.attractions)||[];
+        const matches=attractions.some(a=>a.name&&a.name.toLowerCase()===artist.name.toLowerCase());
+        if(attractions.length&&!matches)return;
+        const venue=(ev._embedded&&ev._embedded.venues&&ev._embedded.venues[0])||{};
+        const city=[venue.city&&venue.city.name,venue.state&&venue.state.stateCode].filter(Boolean).join(', ');
+        shows.push({
+          id:ev.id,
+          artistName:artist.name,
+          venue:venue.name||'',
+          city:city,
+          date:ev.dates&&ev.dates.start&&ev.dates.start.localDate||'',
+          url:ev.url||'',
+          status:'none'
+        });
+      });
     }catch(e){}
   }
   shows.forEach(sh=>{const saved=concerts.find(c=>c.id===sh.id);if(saved)sh.status=saved.status||'none';});
@@ -740,11 +762,11 @@ async function fetchUpcomingShows(){
 
 function renderUpcoming(){
   const c=document.getElementById('upcomingList');c.innerHTML='';
-  const visible=shows.filter(s=>s.status!=='ignored').sort((a,b)=>{if((a.status==='want')!==(b.status==='want'))return a.status==='want'?-1:1;return(parseDateStr(a.date)||0)-(parseDateStr(b.date)||0);});
+  const visible=shows.filter(s=>s.status!=='ignored').sort((a,b)=>{if((a.status==='want')!==(b.status==='want'))return a.status==='want'?-1:1;return new Date(a.date||0)-new Date(b.date||0);});
   if(!visible.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#127928;</div><p>'+(shows.length?'No upcoming shows':'Refresh to load shows')+'</p></div>';return;}
   visible.forEach(show=>{
     const card=document.createElement('div');card.className='show-card'+(show.status==='want'?' want-to-go':'');
-    card.innerHTML='<div class="show-main"><div class="show-artist">'+esc(show.artistName)+'</div><div class="show-venue">'+esc(show.venue)+'</div><div class="show-city">'+esc(show.city)+'</div><div class="show-date">'+fmtSetlistDate(show.date)+'</div>'+(show.status==='want'?'<span class="want-badge">Want to Go</span>':'')+'</div><div class="show-actions"><button class="show-action-btn want '+(show.status==='want'?'active-state':'')+'">'+( show.status==='want'?'Want to Go':'Want to Go')+'</button><button class="show-action-btn ignore">Ignore</button></div>';
+    card.innerHTML='<div class="show-main"><div class="show-artist">'+esc(show.artistName)+'</div><div class="show-venue">'+esc(show.venue)+'</div><div class="show-city">'+esc(show.city)+'</div><div class="show-date">'+fmtShowDate(show.date)+'</div>'+(show.status==='want'?'<span class="want-badge">Want to Go</span>':'')+'</div><div class="show-actions"><button class="show-action-btn want '+(show.status==='want'?'active-state':'')+'">'+( show.status==='want'?'Want to Go':'Want to Go')+'</button><button class="show-action-btn ignore">Ignore</button></div>';
     card.querySelector('.show-action-btn.want').addEventListener('click',()=>{show.status=show.status==='want'?'none':'want';syncShowStatus(show);renderUpcoming();});
     card.querySelector('.show-action-btn.ignore').addEventListener('click',()=>{show.status='ignored';syncShowStatus(show);renderUpcoming();});
     c.appendChild(card);
