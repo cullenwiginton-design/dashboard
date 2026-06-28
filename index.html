@@ -547,6 +547,7 @@ async function loadFromSheets() {
     if (data.concerts)   concerts   = data.concerts;
     if (data.artists)    artists    = data.artists;
     if (data.locations)  locations  = data.locations;
+    if (data.shows)      shows      = data.shows;
     if (data.newsTopics) newsTopics = data.newsTopics;
     if (data.lifeData)   lifeData   = Object.assign({places:[],school:[],things:[],work:[]}, data.lifeData);
     dataLoaded = true;
@@ -563,13 +564,13 @@ async function saveAll() {
   setStatus('syncing','Saving...');
   try {
     await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({todos,movies,concerts,artists,locations,newsTopics,lifeData})});
+      body:JSON.stringify({todos,movies,concerts,artists,locations,shows,newsTopics,lifeData})});
     setStatus('synced','Saved - '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
   } catch(e) { setStatus('error','Save failed'); }
 }
 
 function hasData() {
-  return todos.length||movies.length||concerts.length||artists.length||locations.length||newsTopics.length||
+  return todos.length||movies.length||concerts.length||artists.length||locations.length||shows.length||newsTopics.length||
     lifeData.places.length||lifeData.school.length||lifeData.things.length||lifeData.work.length;
 }
 function scheduleSave() { clearTimeout(saveTimer); if(hasData()) saveTimer=setTimeout(saveAll,1200); }
@@ -827,6 +828,7 @@ async function fetchUpcomingShows(){
   }
   shows.forEach(sh=>{const saved=concerts.find(c=>c.id===sh.id);if(saved)sh.status=saved.status||'none';});
   btn.disabled=false;btn.textContent='Refresh Upcoming Shows';
+  scheduleSave();
   renderUpcoming();
   const cp=document.getElementById('tab-concerts');cp.querySelectorAll('.sub-tab-btn').forEach(b=>b.classList.remove('active'));cp.querySelectorAll('.sub-panel').forEach(p=>p.classList.remove('active'));cp.querySelector('[data-subtab="c-upcoming"]').classList.add('active');document.getElementById('subtab-c-upcoming').classList.add('active');
 }
