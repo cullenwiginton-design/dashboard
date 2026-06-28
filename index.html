@@ -281,6 +281,7 @@
     <button class="sub-tab-btn" data-subtab="c-artists">Artists</button>
   </nav>
   <div class="sub-panel" id="subtab-c-artists">
+    <p class="section-label" style="margin-bottom:12px">Tracked Artists</p>
     <div class="artist-search-wrap">
       <div class="add-row" style="margin-bottom:0">
         <input type="text" id="artistSearchInput" placeholder="Search for an artist..." autocomplete="off" autocorrect="off">
@@ -290,6 +291,22 @@
     </div>
     <div style="height:12px"></div>
     <div class="artist-list" id="artistList"></div>
+
+    <div style="height:8px"></div>
+    <p class="section-label" style="margin-bottom:12px">My Locations</p>
+    <div class="add-row" style="gap:8px">
+      <input type="text" id="newLocationInput" placeholder="City (e.g. San Jose, CA)" autocomplete="off" autocorrect="off">
+      <select class="add-section-select" id="newLocationRadius" style="width:auto">
+        <option value="25">25 mi</option>
+        <option value="50" selected>50 mi</option>
+        <option value="100">100 mi</option>
+        <option value="150">150 mi</option>
+      </select>
+      <button class="btn-add" id="addLocationBtn">+</button>
+    </div>
+    <div class="artist-list" id="locationList"></div>
+
+    <div style="height:12px"></div>
     <button class="btn-refresh" id="refreshShowsBtn">Refresh Upcoming Shows</button>
     <button class="btn-sync" id="concertSyncBtn" style="margin-top:8px">Sync with Sheets</button>
   </div>
@@ -450,6 +467,7 @@ let todos      = [];
 let movies     = [];
 let concerts   = [];
 let artists    = [];
+let locations  = [];
 let shows      = [];
 let newsTopics = [];
 let newsItems  = [];
@@ -528,6 +546,7 @@ async function loadFromSheets() {
     if (data.movies)     movies     = data.movies;
     if (data.concerts)   concerts   = data.concerts;
     if (data.artists)    artists    = data.artists;
+    if (data.locations)  locations  = data.locations;
     if (data.newsTopics) newsTopics = data.newsTopics;
     if (data.lifeData)   lifeData   = Object.assign({places:[],school:[],things:[],work:[]}, data.lifeData);
     dataLoaded = true;
@@ -544,13 +563,13 @@ async function saveAll() {
   setStatus('syncing','Saving...');
   try {
     await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({todos,movies,concerts,artists,newsTopics,lifeData})});
+      body:JSON.stringify({todos,movies,concerts,artists,locations,newsTopics,lifeData})});
     setStatus('synced','Saved - '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
   } catch(e) { setStatus('error','Save failed'); }
 }
 
 function hasData() {
-  return todos.length||movies.length||concerts.length||artists.length||newsTopics.length||
+  return todos.length||movies.length||concerts.length||artists.length||locations.length||newsTopics.length||
     lifeData.places.length||lifeData.school.length||lifeData.things.length||lifeData.work.length;
 }
 function scheduleSave() { clearTimeout(saveTimer); if(hasData()) saveTimer=setTimeout(saveAll,1200); }
@@ -610,7 +629,7 @@ function initDragHandle(handle, todo, sec) {
 
 // TODOS
 function renderAll() {
-  renderTodos(); renderMovies(); renderArtists(); renderUpcoming(); renderMyConcerts(); renderTopics();
+  renderTodos(); renderMovies(); renderArtists(); renderLocations(); renderUpcoming(); renderMyConcerts(); renderTopics();
   try{renderPlaces();}catch(e){console.error('renderPlaces',e);}
   try{renderSchool();}catch(e){console.error('renderSchool',e);}
   try{renderThings();}catch(e){console.error('renderThings',e);}
@@ -724,6 +743,55 @@ function renderArtists(){
   artists.forEach(artist=>{const div=document.createElement('div');div.className='artist-item';div.innerHTML='<span class="artist-name">'+esc(artist.name)+'</span><button class="btn-remove-artist">&#10005;</button>';div.querySelector('.btn-remove-artist').addEventListener('click',()=>{artists.splice(artists.indexOf(artist),1);scheduleSave();renderArtists();});c.appendChild(div);});
 }
 
+// CONCERTS - LOCATIONS
+document.getElementById('addLocationBtn').addEventListener('click',addLocation);
+document.getElementById('newLocationInput').addEventListener('keydown',e=>{if(e.key==='Enter')addLocation();});
+
+async function addLocation(){
+  const input=document.getElementById('newLocationInput');
+  const name=input.value.trim();if(!name)return;
+  const radius=parseInt(document.getElementById('newLocationRadius').value)||50;
+  const btn=document.getElementById('addLocationBtn');btn.disabled=true;btn.textContent='...';
+  try{
+    const res=await fetch(SHEET_URL+'?action=geocode&q='+encodeURIComponent(name)+'&cb='+Date.now());
+    const data=await res.json();
+    if(data&&data.length>0){
+      locations.push({id:uid(),name,lat:parseFloat(data[0].lat),lng:parseFloat(data[0].lon),radius});
+      input.value='';
+      scheduleSave();renderLocations();
+    } else {
+      alert('Could not find that city. Try adding the state, e.g. "Portland, OR".');
+    }
+  }catch(e){alert('Geocoding failed - check connection.');}
+  btn.disabled=false;btn.textContent='+';
+}
+
+function renderLocations(){
+  const c=document.getElementById('locationList');if(!c)return;c.innerHTML='';
+  if(!locations.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#128205;</div><p>No locations set - showing all shows</p></div>';return;}
+  locations.forEach(loc=>{
+    const div=document.createElement('div');div.className='artist-item';
+    div.innerHTML='<span class="artist-name">'+esc(loc.name)+'</span><span class="artist-mbid-badge">'+loc.radius+' mi</span><button class="btn-remove-artist">&#10005;</button>';
+    div.querySelector('.btn-remove-artist').addEventListener('click',()=>{locations.splice(locations.indexOf(loc),1);scheduleSave();renderLocations();renderUpcoming();});
+    c.appendChild(div);
+  });
+}
+
+// Haversine distance in miles between two lat/lng points
+function distanceMiles(lat1,lng1,lat2,lng2){
+  const R=3958.8;const toRad=d=>d*Math.PI/180;
+  const dLat=toRad(lat2-lat1),dLng=toRad(lng2-lng1);
+  const a=Math.sin(dLat/2)**2+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+// Is a show within any of the user's locations?
+function showInLocations(show){
+  if(!locations.length)return true; // no filter set = everything counts as "in"
+  if(show.lat==null||show.lng==null)return false;
+  return locations.some(loc=>distanceMiles(show.lat,show.lng,loc.lat,loc.lng)<=loc.radius);
+}
+
 // CONCERTS - UPCOMING
 document.getElementById('refreshShowsBtn').addEventListener('click',fetchUpcomingShows);
 async function fetchUpcomingShows(){
@@ -742,11 +810,14 @@ async function fetchUpcomingShows(){
         if(attractions.length&&!matches)return;
         const venue=(ev._embedded&&ev._embedded.venues&&ev._embedded.venues[0])||{};
         const city=[venue.city&&venue.city.name,venue.state&&venue.state.stateCode].filter(Boolean).join(', ');
+        const loc=venue.location||{};
         shows.push({
           id:ev.id,
           artistName:artist.name,
           venue:venue.name||'',
           city:city,
+          lat:loc.latitude?parseFloat(loc.latitude):null,
+          lng:loc.longitude?parseFloat(loc.longitude):null,
           date:ev.dates&&ev.dates.start&&ev.dates.start.localDate||'',
           url:ev.url||'',
           status:'none'
@@ -760,17 +831,38 @@ async function fetchUpcomingShows(){
   const cp=document.getElementById('tab-concerts');cp.querySelectorAll('.sub-tab-btn').forEach(b=>b.classList.remove('active'));cp.querySelectorAll('.sub-panel').forEach(p=>p.classList.remove('active'));cp.querySelector('[data-subtab="c-upcoming"]').classList.add('active');document.getElementById('subtab-c-upcoming').classList.add('active');
 }
 
+function makeShowCard(show){
+  const card=document.createElement('div');card.className='show-card'+(show.status==='want'?' want-to-go':'');
+  card.innerHTML='<div class="show-main"><div class="show-artist">'+esc(show.artistName)+'</div><div class="show-venue">'+esc(show.venue)+'</div><div class="show-city">'+esc(show.city)+'</div><div class="show-date">'+fmtShowDate(show.date)+'</div>'+(show.status==='want'?'<span class="want-badge">Want to Go</span>':'')+'</div><div class="show-actions"><button class="show-action-btn want '+(show.status==='want'?'active-state':'')+'">Want to Go</button><button class="show-action-btn ignore">Ignore</button></div>';
+  card.querySelector('.show-action-btn.want').addEventListener('click',()=>{show.status=show.status==='want'?'none':'want';syncShowStatus(show);renderUpcoming();});
+  card.querySelector('.show-action-btn.ignore').addEventListener('click',()=>{show.status='ignored';syncShowStatus(show);renderUpcoming();});
+  return card;
+}
+
 function renderUpcoming(){
   const c=document.getElementById('upcomingList');c.innerHTML='';
-  const visible=shows.filter(s=>s.status!=='ignored').sort((a,b)=>{if((a.status==='want')!==(b.status==='want'))return a.status==='want'?-1:1;return new Date(a.date||0)-new Date(b.date||0);});
+  const sortFn=(a,b)=>{if((a.status==='want')!==(b.status==='want'))return a.status==='want'?-1:1;return new Date(a.date||0)-new Date(b.date||0);};
+  const visible=shows.filter(s=>s.status!=='ignored');
   if(!visible.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#127928;</div><p>'+(shows.length?'No upcoming shows':'Refresh to load shows')+'</p></div>';return;}
-  visible.forEach(show=>{
-    const card=document.createElement('div');card.className='show-card'+(show.status==='want'?' want-to-go':'');
-    card.innerHTML='<div class="show-main"><div class="show-artist">'+esc(show.artistName)+'</div><div class="show-venue">'+esc(show.venue)+'</div><div class="show-city">'+esc(show.city)+'</div><div class="show-date">'+fmtShowDate(show.date)+'</div>'+(show.status==='want'?'<span class="want-badge">Want to Go</span>':'')+'</div><div class="show-actions"><button class="show-action-btn want '+(show.status==='want'?'active-state':'')+'">'+( show.status==='want'?'Want to Go':'Want to Go')+'</button><button class="show-action-btn ignore">Ignore</button></div>';
-    card.querySelector('.show-action-btn.want').addEventListener('click',()=>{show.status=show.status==='want'?'none':'want';syncShowStatus(show);renderUpcoming();});
-    card.querySelector('.show-action-btn.ignore').addEventListener('click',()=>{show.status='ignored';syncShowStatus(show);renderUpcoming();});
-    c.appendChild(card);
-  });
+
+  const near=visible.filter(showInLocations).sort(sortFn);
+  const other=visible.filter(s=>!showInLocations(s)).sort(sortFn);
+
+  // Only show section headers when a location filter is active
+  if(locations.length){
+    const h1=document.createElement('p');h1.className='section-label';h1.style.marginBottom='12px';h1.textContent='My Locations';
+    c.appendChild(h1);
+    if(near.length)near.forEach(s=>c.appendChild(makeShowCard(s)));
+    else{const e=document.createElement('div');e.className='empty-state';e.innerHTML='<p>Nothing near you</p>';c.appendChild(e);}
+
+    if(other.length){
+      const h2=document.createElement('p');h2.className='section-label';h2.style.margin='24px 0 12px';h2.textContent='Other Cities';
+      c.appendChild(h2);
+      other.forEach(s=>c.appendChild(makeShowCard(s)));
+    }
+  } else {
+    near.forEach(s=>c.appendChild(makeShowCard(s)));
+  }
 }
 
 function syncShowStatus(show){
