@@ -116,17 +116,16 @@
   .btn-refresh{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:var(--tap);margin-bottom:8px;border:1.5px solid var(--hb-iron);border-radius:var(--radius);background:var(--hb-iron);font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-seashell);cursor:pointer;transition:background 0.15s;}
   .btn-refresh:active{background:#333;}
   .btn-refresh:disabled{opacity:0.5;cursor:default;}
-  .show-card{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);overflow:hidden;}
+  .show-card{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);overflow:hidden;display:flex;align-items:stretch;}
   .show-card.want-to-go{border-color:var(--hb-amber);}
-  .show-main{padding:12px 14px 10px;}
-  .show-artist{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-fog);margin-bottom:3px;}
-  .show-venue{font-size:0.9rem;font-weight:600;line-height:1.3;}
-  .show-city{font-size:0.8rem;color:var(--hb-fog);margin-top:1px;}
-  .show-date{font-size:0.7rem;font-weight:700;letter-spacing:0.04em;color:var(--hb-iron);margin-top:6px;}
-  .want-badge{display:inline-block;margin-top:6px;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--hb-amber);color:var(--hb-iron);border-radius:3px;padding:2px 7px;}
-  .show-actions{display:flex;border-top:1px solid var(--hb-shoreline);}
-  .show-action-btn{flex:1;height:40px;border:none;background:none;font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.15s,color 0.15s;color:var(--hb-iron);}
-  .show-action-btn:not(:last-child){border-right:1px solid var(--hb-shoreline);}
+  .show-main{padding:8px 12px;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;}
+  .show-artist{font-size:0.95rem;font-weight:700;line-height:1.2;color:var(--hb-iron);word-break:break-word;}
+  .show-meta{font-size:0.7rem;color:var(--hb-fog);margin-top:2px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .show-date{font-size:0.68rem;font-weight:700;letter-spacing:0.03em;color:var(--hb-iron);margin-top:3px;}
+  .want-badge{display:inline-block;margin-top:4px;font-size:0.5rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--hb-amber);color:var(--hb-iron);border-radius:3px;padding:1px 6px;align-self:flex-start;}
+  .show-actions{display:flex;flex-direction:column;flex-shrink:0;border-left:1px solid var(--hb-shoreline);}
+  .show-action-btn{flex:1;width:54px;border:none;background:none;font-family:'Montserrat',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;transition:background 0.15s,color 0.15s;color:var(--hb-iron);padding:0 4px;}
+  .show-action-btn:not(:last-child){border-bottom:1px solid var(--hb-shoreline);}
   .show-action-btn.want:active,.show-action-btn.want.active-state{background:var(--hb-amber);}
   .show-action-btn.ignore:active{background:var(--hb-shoreline);color:var(--hb-fog);}
   .concert-card{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);overflow:hidden;}
@@ -542,25 +541,34 @@ async function loadFromSheets() {
   try {
     const res  = await fetch(SHEET_URL);
     const data = await res.json();
-    if (data.todos)      todos      = data.todos;
-    if (data.movies)     movies     = data.movies;
-    if (data.concerts)   concerts   = data.concerts;
-    if (data.artists)    artists    = data.artists;
-    if (data.locations)  locations  = data.locations;
-    if (data.shows)      shows      = data.shows;
-    if (data.newsTopics) newsTopics = data.newsTopics;
-    if (data.lifeData)   lifeData   = Object.assign({places:[],school:[],things:[],work:[]}, data.lifeData);
-    dataLoaded = true;
+    // Sanity check: a valid response must be an object with at least one known key
+    if (!data || typeof data !== 'object' || (!('todos' in data) && !('movies' in data) && !('concerts' in data))) {
+      throw new Error('Unexpected response shape');
+    }
+    todos      = Array.isArray(data.todos)      ? data.todos      : [];
+    movies     = Array.isArray(data.movies)     ? data.movies     : [];
+    concerts   = Array.isArray(data.concerts)   ? data.concerts   : [];
+    artists    = Array.isArray(data.artists)    ? data.artists    : [];
+    locations  = Array.isArray(data.locations)  ? data.locations  : [];
+    shows      = Array.isArray(data.shows)      ? data.shows      : [];
+    newsTopics = Array.isArray(data.newsTopics) ? data.newsTopics : [];
+    lifeData   = Object.assign({places:[],school:[],things:[],work:[]}, data.lifeData||{});
+    dataLoaded = true;  // ONLY set true on a verified successful load
     setStatus('synced','Synced - '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
   } catch(e) {
-    dataLoaded = true;
-    setStatus('error','Offline - working locally');
+    // Load FAILED. Do NOT set dataLoaded — this blocks all saves so a failed
+    // load can never overwrite good data in Sheets with empty local state.
+    setStatus('error','Load failed - changes are locked until next successful sync');
   }
   renderAll();
 }
 
 async function saveAll() {
-  if (!dataLoaded) return;
+  // Never save unless we've had at least one verified successful load this session.
+  if (!dataLoaded) {
+    setStatus('error','Not saving - no successful load yet');
+    return;
+  }
   setStatus('syncing','Saving...');
   try {
     await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
@@ -695,7 +703,7 @@ function renderMovieList(cId,list,isSeen) {
     tw.innerHTML='<div class="movie-title">'+esc(movie.title)+'</div>';
     if(isSeen){
       const sr=document.createElement('div');sr.className='star-row';
-      for(let i=1;i<=5;i++){const s=document.createElement('span');s.className='star'+(i<=(movie.rating||0)?' filled':'');s.textContent='&#9733;';s.addEventListener('click',()=>{movie.rating=(movie.rating===i)?0:i;scheduleSave();renderMovies();});sr.appendChild(s);}
+      for(let i=1;i<=5;i++){const s=document.createElement('span');s.className='star'+(i<=(movie.rating||0)?' filled':'');s.textContent='★';s.addEventListener('click',()=>{movie.rating=(movie.rating===i)?0:i;scheduleSave();renderMovies();});sr.appendChild(s);}
       tw.appendChild(sr);
     } else {
       const rr=document.createElement('div');rr.className='rec-row';rr.innerHTML='<span class="rec-label">Rec\'d by</span>';
@@ -705,7 +713,7 @@ function renderMovieList(cId,list,isSeen) {
     main.appendChild(tw);
     const acts=document.createElement('div');acts.className='movie-actions';
     if(!isSeen){const mb=document.createElement('button');mb.className='movie-action-btn mark-seen';mb.textContent='Seen';mb.addEventListener('click',()=>{movie.seen=true;movie.rating=movie.rating||0;scheduleSave();renderMovies();});acts.appendChild(mb);}
-    const db=document.createElement('button');db.className='movie-action-btn del-movie';db.textContent='&#10005;';db.addEventListener('click',()=>{movies.splice(movies.indexOf(movie),1);scheduleSave();renderMovies();});acts.appendChild(db);
+    const db=document.createElement('button');db.className='movie-action-btn del-movie';db.textContent='✕';db.addEventListener('click',()=>{movies.splice(movies.indexOf(movie),1);scheduleSave();renderMovies();});acts.appendChild(db);
     main.appendChild(acts);card.appendChild(main);c.appendChild(card);
   });
 }
@@ -835,7 +843,8 @@ async function fetchUpcomingShows(){
 
 function makeShowCard(show){
   const card=document.createElement('div');card.className='show-card'+(show.status==='want'?' want-to-go':'');
-  card.innerHTML='<div class="show-main"><div class="show-artist">'+esc(show.artistName)+'</div><div class="show-venue">'+esc(show.venue)+'</div><div class="show-city">'+esc(show.city)+'</div><div class="show-date">'+fmtShowDate(show.date)+'</div>'+(show.status==='want'?'<span class="want-badge">Want to Go</span>':'')+'</div><div class="show-actions"><button class="show-action-btn want '+(show.status==='want'?'active-state':'')+'">Want to Go</button><button class="show-action-btn ignore">Ignore</button></div>';
+  const metaParts=[show.venue,show.city].filter(Boolean).join(' · ');
+  card.innerHTML='<div class="show-main"><div class="show-artist">'+esc(show.artistName)+'</div><div class="show-meta">'+esc(metaParts)+'</div><div class="show-date">'+fmtShowDate(show.date)+'</div>'+(show.status==='want'?'<span class="want-badge">Going</span>':'')+'</div><div class="show-actions"><button class="show-action-btn want '+(show.status==='want'?'active-state':'')+'">'+(show.status==='want'?'★ Going':'+ Going')+'</button><button class="show-action-btn ignore">Ignore</button></div>';
   card.querySelector('.show-action-btn.want').addEventListener('click',()=>{show.status=show.status==='want'?'none':'want';syncShowStatus(show);renderUpcoming();});
   card.querySelector('.show-action-btn.ignore').addEventListener('click',()=>{show.status='ignored';syncShowStatus(show);renderUpcoming();});
   return card;
