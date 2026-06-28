@@ -698,7 +698,7 @@ async function searchArtists(name) {
   const resultsEl=document.getElementById('artistResults');resultsEl.style.display='block';
   resultsEl.innerHTML='<div style="padding:12px 14px;font-size:0.8rem;color:var(--hb-fog)">Searching...</div>';
   try {
-    const res=await fetch(SHEET_URL, {method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'searchArtist',name})});
+    const res=await fetch(SHEET_URL+'?action=searchArtist&name='+encodeURIComponent(name)+'&cb='+Date.now());
     const data=await res.json();const hits=data.artist||[];
     if(!hits.length){resultsEl.innerHTML='<div style="padding:12px 14px;font-size:0.8rem;color:var(--hb-fog)">No artists found</div>';return;}
     resultsEl.innerHTML='';
@@ -727,7 +727,7 @@ async function fetchUpcomingShows(){
   for(const artist of artists){
     if(!artist.mbid)continue;
     try{
-      const res=await fetch(SHEET_URL, {method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'getShows',mbid:artist.mbid})});
+      const res=await fetch(SHEET_URL+'?action=getShows&mbid='+encodeURIComponent(artist.mbid)+'&cb='+Date.now());
       const data=await res.json();
       (data.setlist||[]).forEach(s=>{const d=parseDateStr(s.eventDate);if(!d||isNaN(d)||d<today)return;shows.push({id:s.id||uid(),artistName:artist.name,artistMbid:artist.mbid,venue:s.venue?.name||'',city:[s.venue?.city?.name,s.venue?.city?.country?.name].filter(Boolean).join(', '),date:s.eventDate,url:s.url||'',status:'none'});});
     }catch(e){}
