@@ -9,249 +9,194 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --hb-white:     #FFFFFF;
-    --hb-seashell:  #F4F1E5;
-    --hb-iron:      #222222;
-    --hb-shoreline: #E0D4BA;
-    --hb-amber:     #EBB656;
-    --hb-fog:       #C4CACC;
-    --hb-greenflash:#D9FF97;
-    --radius:       6px;
-    --tap:          48px;
+    --hb-white:#FFFFFF; --hb-seashell:#F4F1E5; --hb-iron:#222222;
+    --hb-shoreline:#E0D4BA; --hb-amber:#EBB656; --hb-fog:#C4CACC;
+    --hb-greenflash:#D9FF97; --radius:6px; --tap:48px;
   }
-  * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-  body {
-    font-family:'Montserrat','Helvetica Neue',sans-serif;
-    background:var(--hb-seashell); color:var(--hb-iron);
-    min-height:100vh; max-width:480px; margin:0 auto; overflow-x:hidden;
-  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{font-family:'Montserrat','Helvetica Neue',sans-serif;background:var(--hb-seashell);color:var(--hb-iron);min-height:100vh;max-width:480px;margin:0 auto;overflow-x:hidden;}
 
-  /* ── Header ── */
-  .app-header { background:var(--hb-iron); color:var(--hb-seashell); padding:18px 20px 14px; position:sticky; top:0; z-index:100; }
-  .app-header h1 { font-family:'Lora',Georgia,serif; font-weight:400; font-size:1.5rem; letter-spacing:-0.01em; line-height:1; }
-  .app-header .date-line { font-size:0.65rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--hb-fog); margin-top:4px; }
+  .app-header{background:var(--hb-iron);color:var(--hb-seashell);padding:18px 20px 14px;position:sticky;top:0;z-index:100;}
+  .app-header h1{font-family:'Lora',Georgia,serif;font-weight:400;font-size:1.5rem;letter-spacing:-0.01em;line-height:1;}
+  .app-header .date-line{font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--hb-fog);margin-top:4px;}
 
-  /* ── Status ── */
-  .status-bar { background:var(--hb-shoreline); padding:6px 20px; font-size:0.65rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--hb-iron); display:flex; align-items:center; gap:6px; min-height:28px; }
-  .status-dot { width:6px; height:6px; border-radius:50%; background:var(--hb-fog); flex-shrink:0; transition:background 0.3s; }
-  .status-dot.synced  { background:var(--hb-greenflash); }
-  .status-dot.syncing { background:var(--hb-amber); }
-  .status-dot.error   { background:#e07070; }
+  .status-bar{background:var(--hb-shoreline);padding:6px 20px;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--hb-iron);display:flex;align-items:center;gap:6px;min-height:28px;}
+  .status-dot{width:6px;height:6px;border-radius:50%;background:var(--hb-fog);flex-shrink:0;transition:background 0.3s;}
+  .status-dot.synced{background:var(--hb-greenflash);}
+  .status-dot.syncing{background:var(--hb-amber);}
+  .status-dot.error{background:#e07070;}
 
-  /* ── Main tabs ── */
-  .tabs { display:flex; background:var(--hb-white); border-bottom:1px solid var(--hb-shoreline); position:sticky; top:70px; z-index:99; }
-  .tab-btn { flex:1; border:none; background:none; padding:0; height:var(--tap); font-family:'Montserrat',sans-serif; font-size:0.55rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--hb-fog); cursor:pointer; border-bottom:2px solid transparent; transition:color 0.2s,border-color 0.2s; }
-  .tab-btn.active { color:var(--hb-iron); border-bottom-color:var(--hb-amber); }
+  .tabs{display:flex;background:var(--hb-white);border-bottom:1px solid var(--hb-shoreline);position:sticky;top:70px;z-index:99;}
+  .tab-btn{flex:1;border:none;background:none;padding:0;height:var(--tap);font-family:'Montserrat',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--hb-fog);cursor:pointer;border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s;}
+  .tab-btn.active{color:var(--hb-iron);border-bottom-color:var(--hb-amber);}
 
-  /* ── Sub-tabs ── */
-  .sub-tabs { display:flex; background:var(--hb-seashell); border-bottom:1px solid var(--hb-shoreline); position:sticky; top:118px; z-index:98; }
-  .sub-tab-btn { flex:1; border:none; background:none; padding:0; height:38px; font-family:'Montserrat',sans-serif; font-size:0.55rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--hb-fog); cursor:pointer; border-bottom:2px solid transparent; transition:color 0.2s,border-color 0.2s; }
-  .sub-tab-btn.active { color:var(--hb-iron); border-bottom-color:var(--hb-iron); }
+  .sub-tabs{display:flex;background:var(--hb-seashell);border-bottom:1px solid var(--hb-shoreline);position:sticky;top:118px;z-index:98;}
+  .sub-tab-btn{flex:1;border:none;background:none;padding:0;height:38px;font-family:'Montserrat',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--hb-fog);cursor:pointer;border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s;}
+  .sub-tab-btn.active{color:var(--hb-iron);border-bottom-color:var(--hb-iron);}
 
-  /* ── Panels ── */
-  .panel { display:none; }
-  .panel.active { display:block; }
-  .sub-panel { display:none; padding:16px 16px 100px; }
-  .sub-panel.active { display:block; }
+  .panel{display:none;} .panel.active{display:block;}
+  .sub-panel{display:none;padding:16px 16px 100px;} .sub-panel.active{display:block;}
 
-  /* ── Collapsible sections ── */
-  .section-hd { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; cursor:pointer; user-select:none; padding:4px 0; }
-  .section-label { font-size:0.6rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--hb-fog); }
-  .section-hd .section-count { font-size:0.6rem; font-weight:700; color:var(--hb-fog); background:var(--hb-shoreline); border-radius:10px; padding:2px 8px; }
-  .section-hd .chevron { font-size:0.6rem; color:var(--hb-fog); transition:transform 0.2s; margin-left:6px; }
-  .section-hd.collapsed .chevron { transform:rotate(-90deg); }
-  .section-body { display:flex; flex-direction:column; gap:8px; min-height:8px; }
-  .section-body.collapsed { display:none; }
-  .section-wrap { margin-bottom:24px; }
-  .section-body.drag-over-section { outline:2px dashed var(--hb-amber); outline-offset:4px; border-radius:var(--radius); }
+  .section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;cursor:pointer;user-select:none;padding:4px 0;}
+  .section-label{font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--hb-fog);}
+  .section-hd .section-count{font-size:0.6rem;font-weight:700;color:var(--hb-fog);background:var(--hb-shoreline);border-radius:10px;padding:2px 8px;}
+  .section-hd .chevron{font-size:0.6rem;color:var(--hb-fog);transition:transform 0.2s;margin-left:6px;}
+  .section-hd.collapsed .chevron{transform:rotate(-90deg);}
+  .section-body{display:flex;flex-direction:column;gap:8px;min-height:8px;}
+  .section-body.collapsed{display:none;}
+  .section-wrap{margin-bottom:24px;}
+  .section-body.drag-over-section{outline:2px dashed var(--hb-amber);outline-offset:4px;border-radius:var(--radius);}
 
-  /* ── Add row ── */
-  .add-row { display:flex; gap:8px; margin-bottom:20px; }
-  .add-row input { flex:1; height:var(--tap); padding:0 14px; border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); background:var(--hb-white); font-family:'Montserrat',sans-serif; font-size:0.875rem; color:var(--hb-iron); outline:none; transition:border-color 0.2s; }
-  .add-row input:focus { border-color:var(--hb-iron); }
-  .add-row input::placeholder { color:var(--hb-fog); }
-  .add-section-select { height:var(--tap); padding:0 10px; border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); background:var(--hb-white); font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; color:var(--hb-iron); cursor:pointer; outline:none; flex-shrink:0; -webkit-appearance:none; appearance:none; padding-right:24px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C4CACC'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 8px center; }
-  .btn-add { height:var(--tap); width:var(--tap); border:none; border-radius:var(--radius); background:var(--hb-iron); color:var(--hb-seashell); font-size:1.4rem; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:background 0.15s; }
-  .btn-add:active { background:var(--hb-amber); color:var(--hb-iron); }
+  .add-row{display:flex;gap:8px;margin-bottom:20px;}
+  .add-row input{flex:1;height:var(--tap);padding:0 14px;border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);background:var(--hb-white);font-family:'Montserrat',sans-serif;font-size:0.875rem;color:var(--hb-iron);outline:none;transition:border-color 0.2s;}
+  .add-row input:focus{border-color:var(--hb-iron);}
+  .add-row input::placeholder{color:var(--hb-fog);}
+  .add-section-select{height:var(--tap);padding:0 10px;border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);background:var(--hb-white);font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;color:var(--hb-iron);cursor:pointer;outline:none;flex-shrink:0;-webkit-appearance:none;appearance:none;padding-right:24px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C4CACC'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;}
+  .btn-add{height:var(--tap);width:var(--tap);border:none;border-radius:var(--radius);background:var(--hb-iron);color:var(--hb-seashell);font-size:1.4rem;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background 0.15s;}
+  .btn-add:active{background:var(--hb-amber);color:var(--hb-iron);}
 
-  /* ── Todo item ── */
-  .todo-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
-  .todo-item { background:var(--hb-white); border-radius:var(--radius); border:1.5px solid var(--hb-shoreline); display:flex; align-items:center; user-select:none; position:relative; transition:box-shadow 0.15s; }
-  .todo-item.is-dragging { opacity:0; }
-  .drag-ghost { position:fixed; pointer-events:none; z-index:9999; opacity:0.92; box-shadow:0 8px 24px rgba(0,0,0,0.18); border-radius:var(--radius); background:var(--hb-white); border:1.5px solid var(--hb-amber); left:0; top:0; }
-  .drag-handle { width:36px; height:var(--tap); display:flex; align-items:center; justify-content:center; color:var(--hb-fog); flex-shrink:0; font-size:0.85rem; cursor:grab; touch-action:none; }
-  .todo-check { width:var(--tap); height:var(--tap); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
-  .todo-check input[type=checkbox] { display:none; }
-  .check-box { width:20px; height:20px; border-radius:4px; border:2px solid var(--hb-shoreline); background:var(--hb-white); display:flex; align-items:center; justify-content:center; transition:background 0.15s,border-color 0.15s; }
-  .check-tick { display:none; font-size:0.7rem; color:var(--hb-iron); font-weight:700; }
-  .todo-text { flex:1; padding:0 6px 0 0; font-size:0.875rem; line-height:1.35; min-width:0; word-break:break-word; }
-  .btn-delete { width:40px; height:var(--tap); border:none; background:none; color:var(--hb-fog); font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; border-left:1px solid var(--hb-shoreline); border-radius:0 var(--radius) var(--radius) 0; transition:color 0.15s,background 0.15s; }
-  .btn-delete:active { color:var(--hb-iron); background:var(--hb-shoreline); }
+  .todo-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .todo-item{background:var(--hb-white);border-radius:var(--radius);border:1.5px solid var(--hb-shoreline);display:flex;align-items:center;user-select:none;position:relative;}
+  .todo-item.is-dragging{opacity:0;}
+  .drag-ghost{position:fixed;pointer-events:none;z-index:9999;opacity:0.92;box-shadow:0 8px 24px rgba(0,0,0,0.18);border-radius:var(--radius);background:var(--hb-white);border:1.5px solid var(--hb-amber);left:0;top:0;}
+  .drag-handle{width:36px;height:var(--tap);display:flex;align-items:center;justify-content:center;color:var(--hb-fog);flex-shrink:0;font-size:0.85rem;cursor:grab;touch-action:none;}
+  .todo-check{width:var(--tap);height:var(--tap);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+  .todo-check input[type=checkbox]{display:none;}
+  .check-box{width:20px;height:20px;border-radius:4px;border:2px solid var(--hb-shoreline);background:var(--hb-white);display:flex;align-items:center;justify-content:center;transition:background 0.15s,border-color 0.15s;}
+  .check-tick{display:none;font-size:0.7rem;color:var(--hb-iron);font-weight:700;}
+  .todo-text{flex:1;padding:0 6px 0 0;font-size:0.875rem;line-height:1.35;min-width:0;word-break:break-word;}
+  .btn-delete{width:40px;height:var(--tap);border:none;background:none;color:var(--hb-fog);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-left:1px solid var(--hb-shoreline);border-radius:0 var(--radius) var(--radius) 0;transition:color 0.15s,background 0.15s;}
+  .btn-delete:active{color:var(--hb-iron);background:var(--hb-shoreline);}
 
-  /* ── Completed ── */
-  .completed-item { background:var(--hb-white); border-radius:var(--radius); border:1.5px solid var(--hb-shoreline); display:flex; align-items:center; opacity:0.6; }
-  .completed-check { width:var(--tap); height:var(--tap); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-  .completed-check-box { width:20px; height:20px; border-radius:4px; background:var(--hb-greenflash); border:2px solid var(--hb-greenflash); display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--hb-iron); font-weight:700; }
-  .completed-text { flex:1; padding:0 8px 0 0; font-size:0.875rem; line-height:1.35; text-decoration:line-through; color:var(--hb-fog); min-width:0; word-break:break-word; }
-  .completed-meta { font-size:0.6rem; color:var(--hb-fog); font-weight:600; letter-spacing:0.04em; padding-right:8px; white-space:nowrap; flex-shrink:0; }
-  .btn-uncomplete { width:40px; height:var(--tap); border:none; background:none; color:var(--hb-fog); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; border-left:1px solid var(--hb-shoreline); border-radius:0 var(--radius) var(--radius) 0; transition:background 0.15s; }
-  .btn-uncomplete:active { background:var(--hb-seashell); }
+  .completed-item{background:var(--hb-white);border-radius:var(--radius);border:1.5px solid var(--hb-shoreline);display:flex;align-items:center;opacity:0.6;}
+  .completed-check{width:var(--tap);height:var(--tap);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .completed-check-box{width:20px;height:20px;border-radius:4px;background:var(--hb-greenflash);border:2px solid var(--hb-greenflash);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--hb-iron);font-weight:700;}
+  .completed-text{flex:1;padding:0 8px 0 0;font-size:0.875rem;line-height:1.35;text-decoration:line-through;color:var(--hb-fog);min-width:0;word-break:break-word;}
+  .completed-meta{font-size:0.6rem;color:var(--hb-fog);font-weight:600;letter-spacing:0.04em;padding-right:8px;white-space:nowrap;flex-shrink:0;}
+  .btn-uncomplete{width:40px;height:var(--tap);border:none;background:none;color:var(--hb-fog);font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-left:1px solid var(--hb-shoreline);border-radius:0 var(--radius) var(--radius) 0;transition:background 0.15s;}
+  .btn-uncomplete:active{background:var(--hb-seashell);}
 
-  /* ── Shared empty / sync / coming soon ── */
-  .empty-state { text-align:center; padding:32px 24px; color:var(--hb-fog); }
-  .empty-state .empty-icon { font-size:1.8rem; margin-bottom:10px; }
-  .empty-state p { font-size:0.75rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
-  .btn-sync { display:block; width:100%; height:var(--tap); margin-top:8px; border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); background:var(--hb-white); font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--hb-iron); cursor:pointer; transition:background 0.15s; }
-  .btn-sync:active { background:var(--hb-seashell); }
-  .coming-soon { text-align:center; padding:60px 24px; }
-  .coming-soon .cs-icon { font-size:2.5rem; margin-bottom:16px; }
-  .coming-soon h2 { font-family:'Lora',Georgia,serif; font-weight:400; font-size:1.4rem; margin-bottom:8px; }
-  .coming-soon p { font-size:0.8rem; color:var(--hb-fog); font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+  .empty-state{text-align:center;padding:32px 24px;color:var(--hb-fog);}
+  .empty-state .empty-icon{font-size:1.8rem;margin-bottom:10px;}
+  .empty-state p{font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;}
+  .btn-sync{display:block;width:100%;height:var(--tap);margin-top:8px;border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);background:var(--hb-white);font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-iron);cursor:pointer;transition:background 0.15s;}
+  .btn-sync:active{background:var(--hb-seashell);}
 
-  /* ── Movies ── */
-  .movie-card { background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); overflow:hidden; }
-  .movie-main { display:flex; align-items:center; min-height:var(--tap); }
-  .movie-title-wrap { flex:1; padding:10px 12px; min-width:0; }
-  .movie-title { font-size:0.9rem; font-weight:600; line-height:1.3; word-break:break-word; }
-  .star-row { display:flex; gap:2px; margin-top:5px; }
-  .star { font-size:1.1rem; cursor:pointer; color:var(--hb-shoreline); line-height:1; padding:2px; transition:color 0.1s; }
-  .star.filled { color:var(--hb-amber); }
-  .star:active { transform:scale(1.2); }
-  .rec-row { display:flex; align-items:center; gap:6px; margin-top:6px; }
-  .rec-label { font-size:0.6rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--hb-fog); white-space:nowrap; flex-shrink:0; }
-  .rec-input { flex:1; border:none; border-bottom:1px solid var(--hb-shoreline); background:transparent; font-family:'Montserrat',sans-serif; font-size:0.8rem; color:var(--hb-iron); padding:2px 4px; outline:none; min-width:0; }
-  .rec-input::placeholder { color:var(--hb-fog); }
-  .rec-input:focus { border-bottom-color:var(--hb-iron); }
-  .movie-actions { display:flex; flex-direction:column; flex-shrink:0; border-left:1px solid var(--hb-shoreline); align-self:stretch; }
-  .movie-action-btn { flex:1; min-height:34px; border:none; background:none; cursor:pointer; font-size:0.75rem; display:flex; align-items:center; justify-content:center; padding:0 10px; color:var(--hb-fog); transition:background 0.15s,color 0.15s; white-space:nowrap; }
-  .movie-action-btn:not(:last-child) { border-bottom:1px solid var(--hb-shoreline); }
-  .movie-action-btn.mark-seen { font-size:0.6rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--hb-iron); }
-  .movie-action-btn.mark-seen:active { background:var(--hb-greenflash); color:var(--hb-iron); }
-  .movie-action-btn.del-movie:active { background:var(--hb-shoreline); color:var(--hb-iron); }
+  .movie-card{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);overflow:hidden;}
+  .movie-main{display:flex;align-items:center;min-height:var(--tap);}
+  .movie-title-wrap{flex:1;padding:10px 12px;min-width:0;}
+  .movie-title{font-size:0.9rem;font-weight:600;line-height:1.3;word-break:break-word;}
+  .star-row{display:flex;gap:2px;margin-top:5px;}
+  .star{font-size:1.1rem;cursor:pointer;color:var(--hb-shoreline);line-height:1;padding:2px;transition:color 0.1s;}
+  .star.filled{color:var(--hb-amber);}
+  .rec-row{display:flex;align-items:center;gap:6px;margin-top:6px;}
+  .rec-label{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--hb-fog);white-space:nowrap;flex-shrink:0;}
+  .rec-input{flex:1;border:none;border-bottom:1px solid var(--hb-shoreline);background:transparent;font-family:'Montserrat',sans-serif;font-size:0.8rem;color:var(--hb-iron);padding:2px 4px;outline:none;min-width:0;}
+  .rec-input::placeholder{color:var(--hb-fog);}
+  .rec-input:focus{border-bottom-color:var(--hb-iron);}
+  .movie-actions{display:flex;flex-direction:column;flex-shrink:0;border-left:1px solid var(--hb-shoreline);align-self:stretch;}
+  .movie-action-btn{flex:1;min-height:34px;border:none;background:none;cursor:pointer;font-size:0.75rem;display:flex;align-items:center;justify-content:center;padding:0 10px;color:var(--hb-fog);transition:background 0.15s,color 0.15s;white-space:nowrap;}
+  .movie-action-btn:not(:last-child){border-bottom:1px solid var(--hb-shoreline);}
+  .movie-action-btn.mark-seen{font-size:0.6rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--hb-iron);}
+  .movie-action-btn.mark-seen:active{background:var(--hb-greenflash);color:var(--hb-iron);}
+  .movie-action-btn.del-movie:active{background:var(--hb-shoreline);color:var(--hb-iron);}
 
-  /* ══════════════════════════════════════
-     CONCERTS TAB
-  ══════════════════════════════════════ */
+  /* Concerts */
+  .artist-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+  .artist-item{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);display:flex;align-items:center;height:var(--tap);padding:0 14px;gap:10px;}
+  .artist-name{flex:1;font-size:0.875rem;font-weight:600;}
+  .btn-remove-artist{border:none;background:none;color:var(--hb-fog);font-size:1rem;cursor:pointer;padding:0 4px;flex-shrink:0;}
+  .artist-search-wrap{position:relative;margin-bottom:16px;}
+  .artist-results{position:absolute;left:0;right:0;top:calc(var(--tap) + 4px);background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);z-index:50;box-shadow:0 4px 16px rgba(0,0,0,0.1);max-height:240px;overflow-y:auto;}
+  .artist-result-item{padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--hb-shoreline);}
+  .artist-result-item:last-child{border-bottom:none;}
+  .artist-result-item:active{background:var(--hb-seashell);}
+  .artist-result-name{font-size:0.875rem;font-weight:600;}
+  .artist-result-meta{font-size:0.65rem;color:var(--hb-fog);margin-top:2px;}
+  .btn-refresh{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:var(--tap);margin-bottom:8px;border:1.5px solid var(--hb-iron);border-radius:var(--radius);background:var(--hb-iron);font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-seashell);cursor:pointer;transition:background 0.15s;}
+  .btn-refresh:active{background:#333;}
+  .btn-refresh:disabled{opacity:0.5;cursor:default;}
+  .show-card{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);overflow:hidden;}
+  .show-card.want-to-go{border-color:var(--hb-amber);}
+  .show-main{padding:12px 14px 10px;}
+  .show-artist{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-fog);margin-bottom:3px;}
+  .show-venue{font-size:0.9rem;font-weight:600;line-height:1.3;}
+  .show-city{font-size:0.8rem;color:var(--hb-fog);margin-top:1px;}
+  .show-date{font-size:0.7rem;font-weight:700;letter-spacing:0.04em;color:var(--hb-iron);margin-top:6px;}
+  .want-badge{display:inline-block;margin-top:6px;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--hb-amber);color:var(--hb-iron);border-radius:3px;padding:2px 7px;}
+  .show-actions{display:flex;border-top:1px solid var(--hb-shoreline);}
+  .show-action-btn{flex:1;height:40px;border:none;background:none;font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.15s,color 0.15s;color:var(--hb-iron);}
+  .show-action-btn:not(:last-child){border-right:1px solid var(--hb-shoreline);}
+  .show-action-btn.want:active,.show-action-btn.want.active-state{background:var(--hb-amber);}
+  .show-action-btn.ignore:active{background:var(--hb-shoreline);color:var(--hb-fog);}
+  .concert-card{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);overflow:hidden;}
+  .concert-main{padding:12px 14px 10px;}
+  .concert-artist{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-fog);margin-bottom:3px;}
+  .concert-venue{font-size:0.9rem;font-weight:600;line-height:1.3;}
+  .concert-city{font-size:0.8rem;color:var(--hb-fog);margin-top:1px;}
+  .concert-date{font-size:0.7rem;font-weight:700;letter-spacing:0.04em;color:var(--hb-iron);margin-top:6px;}
+  .concert-star-row{display:flex;gap:2px;margin-top:6px;}
+  .concert-star{font-size:1rem;cursor:pointer;color:var(--hb-shoreline);padding:1px;transition:color 0.1s;}
+  .concert-star.filled{color:var(--hb-amber);}
+  .concert-notes-row{margin-top:8px;}
+  .concert-notes-input{width:100%;border:none;border-bottom:1px solid var(--hb-shoreline);background:transparent;font-family:'Montserrat',sans-serif;font-size:0.8rem;color:var(--hb-iron);padding:2px 0 4px;outline:none;}
+  .concert-notes-input::placeholder{color:var(--hb-fog);}
+  .concert-link-row{display:flex;align-items:center;gap:6px;margin-top:8px;}
+  .concert-link-label{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--hb-fog);white-space:nowrap;flex-shrink:0;}
+  .concert-link-input{flex:1;border:none;border-bottom:1px solid var(--hb-shoreline);background:transparent;font-family:'Montserrat',sans-serif;font-size:0.75rem;color:var(--hb-iron);padding:2px 4px;outline:none;min-width:0;}
+  .concert-link-input::placeholder{color:var(--hb-fog);}
+  .concert-footer{display:flex;border-top:1px solid var(--hb-shoreline);margin-top:10px;}
+  .concert-footer-btn{flex:1;height:38px;border:none;background:none;font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;color:var(--hb-fog);transition:background 0.15s;}
+  .concert-footer-btn:not(:last-child){border-right:1px solid var(--hb-shoreline);}
+  .concert-footer-btn.open-link{color:var(--hb-iron);}
+  .concert-footer-btn.open-link:active{background:var(--hb-seashell);}
+  .concert-footer-btn.del-concert:active{background:var(--hb-shoreline);}
 
-  /* Artist pill list */
-  .artist-list { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
-  .artist-item { background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); display:flex; align-items:center; height:var(--tap); padding:0 14px; gap:10px; }
-  .artist-name { flex:1; font-size:0.875rem; font-weight:600; }
-  .artist-mbid-badge { font-size:0.55rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--hb-fog); background:var(--hb-seashell); border-radius:3px; padding:2px 6px; flex-shrink:0; }
-  .btn-remove-artist { border:none; background:none; color:var(--hb-fog); font-size:1rem; cursor:pointer; padding:0 4px; flex-shrink:0; transition:color 0.15s; }
-  .btn-remove-artist:active { color:var(--hb-iron); }
+  /* Shared form styles */
+  .add-concert-form,.lr-form{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);padding:16px;margin-bottom:20px;display:none;flex-direction:column;gap:10px;}
+  .add-concert-form.open,.lr-form.open{display:flex;}
+  .form-field{display:flex;flex-direction:column;gap:4px;}
+  .form-label{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-fog);}
+  .form-input{height:40px;padding:0 12px;border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);background:var(--hb-seashell);font-family:'Montserrat',sans-serif;font-size:0.85rem;color:var(--hb-iron);outline:none;transition:border-color 0.2s;}
+  .form-input:focus{border-color:var(--hb-iron);background:var(--hb-white);}
+  .form-input::placeholder{color:var(--hb-fog);}
+  .form-row{display:flex;gap:8px;}
+  .form-row .form-field{flex:1;}
+  .btn-form-submit{height:var(--tap);border:none;border-radius:var(--radius);background:var(--hb-iron);color:var(--hb-seashell);font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.15s;}
+  .btn-form-submit:active{background:var(--hb-amber);color:var(--hb-iron);}
+  .btn-form-cancel{height:var(--tap);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);background:none;font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-fog);cursor:pointer;}
+  .btn-toggle-form{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:var(--tap);margin-bottom:16px;border:1.5px dashed var(--hb-shoreline);border-radius:var(--radius);background:none;font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-fog);cursor:pointer;transition:border-color 0.15s,color 0.15s;}
+  .btn-toggle-form:active{border-color:var(--hb-iron);color:var(--hb-iron);}
 
-  /* Artist search results dropdown */
-  .artist-search-wrap { position:relative; margin-bottom:16px; }
-  .artist-results { position:absolute; left:0; right:0; top:calc(var(--tap) + 4px); background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); z-index:50; box-shadow:0 4px 16px rgba(0,0,0,0.1); max-height:240px; overflow-y:auto; }
-  .artist-result-item { padding:12px 14px; cursor:pointer; border-bottom:1px solid var(--hb-shoreline); transition:background 0.1s; }
-  .artist-result-item:last-child { border-bottom:none; }
-  .artist-result-item:active { background:var(--hb-seashell); }
-  .artist-result-name { font-size:0.875rem; font-weight:600; }
-  .artist-result-meta { font-size:0.65rem; color:var(--hb-fog); margin-top:2px; }
+  /* News */
+  .topic-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+  .topic-item{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);display:flex;align-items:center;height:var(--tap);padding:0 14px;gap:10px;}
+  .topic-name{flex:1;font-size:0.875rem;font-weight:600;}
+  .btn-remove-topic{border:none;background:none;color:var(--hb-fog);font-size:1rem;cursor:pointer;padding:0 4px;flex-shrink:0;}
+  .news-item{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);padding:14px;cursor:pointer;transition:border-color 0.15s;display:block;text-decoration:none;color:inherit;}
+  .news-item:active{border-color:var(--hb-amber);background:#fffdf5;}
+  .news-topic-tag{font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hb-fog);margin-bottom:5px;}
+  .news-headline{font-size:0.9rem;font-weight:600;line-height:1.35;margin-bottom:4px;}
+  .news-meta{font-size:0.65rem;color:var(--hb-fog);display:flex;gap:8px;align-items:center;}
+  .news-source{font-weight:700;}
+  .news-feed{display:flex;flex-direction:column;gap:10px;}
 
-  /* Refresh button */
-  .btn-refresh { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; height:var(--tap); margin-bottom:8px; border:1.5px solid var(--hb-iron); border-radius:var(--radius); background:var(--hb-iron); font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--hb-seashell); cursor:pointer; transition:background 0.15s; }
-  .btn-refresh:active { background:#333; }
-  .btn-refresh:disabled { opacity:0.5; cursor:default; }
-
-  /* Upcoming show card */
-  .show-card { background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); overflow:hidden; }
-  .show-card.want-to-go { border-color:var(--hb-amber); }
-  .show-main { padding:12px 14px 10px; }
-  .show-artist { font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--hb-fog); margin-bottom:3px; }
-  .show-venue { font-size:0.9rem; font-weight:600; line-height:1.3; }
-  .show-city  { font-size:0.8rem; color:var(--hb-fog); margin-top:1px; }
-  .show-date  { font-size:0.7rem; font-weight:700; letter-spacing:0.04em; color:var(--hb-iron); margin-top:6px; }
-  .want-badge { display:inline-block; margin-top:6px; font-size:0.55rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; background:var(--hb-amber); color:var(--hb-iron); border-radius:3px; padding:2px 7px; }
-  .show-actions { display:flex; border-top:1px solid var(--hb-shoreline); }
-  .show-action-btn { flex:1; height:40px; border:none; background:none; font-family:'Montserrat',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; transition:background 0.15s,color 0.15s; color:var(--hb-iron); }
-  .show-action-btn:not(:last-child) { border-right:1px solid var(--hb-shoreline); }
-  .show-action-btn.want { color:var(--hb-iron); }
-  .show-action-btn.want:active,.show-action-btn.want.active-state { background:var(--hb-amber); }
-  .show-action-btn.ignore:active { background:var(--hb-shoreline); color:var(--hb-fog); }
-
-  /* My Concerts log */
-  .concert-card { background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); overflow:hidden; }
-  .concert-main { padding:12px 14px 10px; }
-  .concert-artist { font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--hb-fog); margin-bottom:3px; }
-  .concert-venue { font-size:0.9rem; font-weight:600; line-height:1.3; }
-  .concert-city  { font-size:0.8rem; color:var(--hb-fog); margin-top:1px; }
-  .concert-date  { font-size:0.7rem; font-weight:700; letter-spacing:0.04em; color:var(--hb-iron); margin-top:6px; }
-  .concert-star-row { display:flex; gap:2px; margin-top:6px; }
-  .concert-star { font-size:1rem; cursor:pointer; color:var(--hb-shoreline); padding:1px; transition:color 0.1s; }
-  .concert-star.filled { color:var(--hb-amber); }
-  .concert-notes-row { margin-top:8px; }
-  .concert-notes-input { width:100%; border:none; border-bottom:1px solid var(--hb-shoreline); background:transparent; font-family:'Montserrat',sans-serif; font-size:0.8rem; color:var(--hb-iron); padding:2px 0 4px; outline:none; }
-  .concert-notes-input::placeholder { color:var(--hb-fog); }
-  .concert-notes-input:focus { border-bottom-color:var(--hb-iron); }
-  .concert-link-row { display:flex; align-items:center; gap:6px; margin-top:8px; }
-  .concert-link-label { font-size:0.6rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--hb-fog); white-space:nowrap; flex-shrink:0; }
-  .concert-link-input { flex:1; border:none; border-bottom:1px solid var(--hb-shoreline); background:transparent; font-family:'Montserrat',sans-serif; font-size:0.75rem; color:var(--hb-iron); padding:2px 4px; outline:none; min-width:0; }
-  .concert-link-input::placeholder { color:var(--hb-fog); }
-  .concert-link-input:focus { border-bottom-color:var(--hb-iron); }
-  .concert-footer { display:flex; border-top:1px solid var(--hb-shoreline); margin-top:10px; }
-  .concert-footer-btn { flex:1; height:38px; border:none; background:none; font-family:'Montserrat',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; color:var(--hb-fog); transition:background 0.15s; }
-  .concert-footer-btn:not(:last-child) { border-right:1px solid var(--hb-shoreline); }
-  .concert-footer-btn.open-link { color:var(--hb-iron); }
-  .concert-footer-btn.open-link:active { background:var(--hb-seashell); }
-  .concert-footer-btn.del-concert:active { background:var(--hb-shoreline); }
-
-  /* Add concert form */
-  .add-concert-form { background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); padding:16px; margin-bottom:20px; display:none; flex-direction:column; gap:10px; }
-  .add-concert-form.open { display:flex; }
-  .form-field { display:flex; flex-direction:column; gap:4px; }
-  .form-label { font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--hb-fog); }
-  .form-input { height:40px; padding:0 12px; border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); background:var(--hb-seashell); font-family:'Montserrat',sans-serif; font-size:0.85rem; color:var(--hb-iron); outline:none; transition:border-color 0.2s; }
-  .form-input:focus { border-color:var(--hb-iron); background:var(--hb-white); }
-  .form-input::placeholder { color:var(--hb-fog); }
-  .form-row { display:flex; gap:8px; }
-  .form-row .form-field { flex:1; }
-  .btn-form-submit { height:var(--tap); border:none; border-radius:var(--radius); background:var(--hb-iron); color:var(--hb-seashell); font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; transition:background 0.15s; }
-  .btn-form-submit:active { background:var(--hb-amber); color:var(--hb-iron); }
-  .btn-form-cancel { height:var(--tap); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); background:none; font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--hb-fog); cursor:pointer; }
-  .btn-toggle-form { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; height:var(--tap); margin-bottom:16px; border:1.5px dashed var(--hb-shoreline); border-radius:var(--radius); background:none; font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--hb-fog); cursor:pointer; transition:border-color 0.15s,color 0.15s; }
-  .btn-toggle-form:active { border-color:var(--hb-iron); color:var(--hb-iron); }
-
-  /* ══════════════════════════════════════
-     NEWS TAB
-  ══════════════════════════════════════ */
-  .topic-list { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
-  .topic-item { background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); display:flex; align-items:center; height:var(--tap); padding:0 14px; gap:10px; }
-  .topic-name { flex:1; font-size:0.875rem; font-weight:600; }
-  .btn-remove-topic { border:none; background:none; color:var(--hb-fog); font-size:1rem; cursor:pointer; padding:0 4px; flex-shrink:0; transition:color 0.15s; }
-  .btn-remove-topic:active { color:var(--hb-iron); }
-
-  .news-item { background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); padding:14px; cursor:pointer; transition:border-color 0.15s; display:block; text-decoration:none; color:inherit; }
-  .news-item:active { border-color:var(--hb-amber); background:#fffdf5; }
-  .news-topic-tag { font-size:0.55rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--hb-fog); margin-bottom:5px; }
-  .news-headline { font-size:0.9rem; font-weight:600; line-height:1.35; margin-bottom:4px; }
-  .news-meta { font-size:0.65rem; color:var(--hb-fog); display:flex; gap:8px; align-items:center; }
-  .news-source { font-weight:700; }
-  .news-date { }
-  .news-feed { display:flex; flex-direction:column; gap:10px; }
-
-  /* ══════════════════════════════════════
-     LIFE RESUME TAB
-  ══════════════════════════════════════ */
-  .lr-card { background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); overflow:hidden; margin-bottom:0; }
-  .lr-body { padding:14px 14px 12px; }
-  .lr-title { font-size:0.95rem; font-weight:700; line-height:1.3; margin-bottom:2px; }
-  .lr-subtitle { font-size:0.8rem; color:var(--hb-fog); margin-bottom:6px; }
-  .lr-meta { font-size:0.68rem; font-weight:600; letter-spacing:0.04em; color:var(--hb-iron); margin-bottom:6px; }
-  .lr-tag { display:inline-block; font-size:0.55rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; background:var(--hb-shoreline); color:var(--hb-iron); border-radius:3px; padding:2px 7px; margin-bottom:8px; }
-  .lr-tag.event { background:var(--hb-amber); }
-  .lr-tag.accomplishment { background:var(--hb-greenflash); }
-  .lr-tag.cool { background:var(--hb-shoreline); }
-  .lr-notes-input { width:100%; border:none; border-bottom:1px solid var(--hb-shoreline); background:transparent; font-family:'Montserrat',sans-serif; font-size:0.8rem; color:var(--hb-iron); padding:2px 0 4px; outline:none; }
-  .lr-notes-input::placeholder { color:var(--hb-fog); }
-  .lr-notes-input:focus { border-bottom-color:var(--hb-iron); }
-  .lr-footer { display:flex; border-top:1px solid var(--hb-shoreline); }
-  .lr-footer-btn { flex:1; height:38px; border:none; background:none; font-family:'Montserrat',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; color:var(--hb-fog); transition:background 0.15s; }
-  .lr-footer-btn:not(:last-child) { border-right:1px solid var(--hb-shoreline); }
-  .lr-footer-btn.del:active { background:var(--hb-shoreline); }
-  .lr-form { background:var(--hb-white); border:1.5px solid var(--hb-shoreline); border-radius:var(--radius); padding:16px; margin-bottom:20px; display:none; flex-direction:column; gap:10px; }
-  .lr-form.open { display:flex; }
+  /* Life Resume */
+  .lr-card{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);overflow:hidden;}
+  .lr-body{padding:14px 14px 12px;}
+  .lr-title{font-size:0.95rem;font-weight:700;line-height:1.3;margin-bottom:2px;}
+  .lr-subtitle{font-size:0.8rem;color:var(--hb-fog);margin-bottom:6px;}
+  .lr-meta{font-size:0.68rem;font-weight:600;letter-spacing:0.04em;color:var(--hb-iron);margin-bottom:6px;}
+  .lr-tag{display:inline-block;font-size:0.55rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--hb-shoreline);color:var(--hb-iron);border-radius:3px;padding:2px 7px;margin-bottom:8px;}
+  .lr-tag.event{background:var(--hb-amber);}
+  .lr-tag.accomplishment{background:var(--hb-greenflash);}
+  .lr-tag.cool{background:var(--hb-shoreline);}
+  .lr-notes-input{width:100%;border:none;border-bottom:1px solid var(--hb-shoreline);background:transparent;font-family:'Montserrat',sans-serif;font-size:0.8rem;color:var(--hb-iron);padding:2px 0 4px;outline:none;}
+  .lr-notes-input::placeholder{color:var(--hb-fog);}
+  .lr-notes-input:focus{border-bottom-color:var(--hb-iron);}
+  .lr-footer{display:flex;border-top:1px solid var(--hb-shoreline);}
+  .lr-footer-btn{flex:1;height:38px;border:none;background:none;font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;color:var(--hb-fog);transition:background 0.15s;}
+  .lr-footer-btn.del:active{background:var(--hb-shoreline);}
 </style>
 </head>
 <body>
@@ -262,7 +207,7 @@
 </header>
 <div class="status-bar">
   <span class="status-dot" id="statusDot"></span>
-  <span id="statusText">Loading…</span>
+  <span id="statusText">Loading...</span>
 </div>
 
 <nav class="tabs">
@@ -273,7 +218,7 @@
   <button class="tab-btn" data-tab="life">Life</button>
 </nav>
 
-<!-- ══ TODOS ══ -->
+<!-- TODOS -->
 <section class="panel active" id="tab-todos">
   <nav class="sub-tabs">
     <button class="sub-tab-btn active" data-subtab="active">Active</button>
@@ -281,7 +226,7 @@
   </nav>
   <div class="sub-panel active" id="subtab-active">
     <div class="add-row">
-      <input type="text" id="newTodoInput" placeholder="Add a task…" autocomplete="off" autocorrect="off">
+      <input type="text" id="newTodoInput" placeholder="Add a task..." autocomplete="off" autocorrect="off">
       <select class="add-section-select" id="newTodoSection">
         <option value="now">Now</option>
         <option value="next">Next</option>
@@ -290,102 +235,78 @@
       <button class="btn-add" id="addTodoBtn">+</button>
     </div>
     <div class="section-wrap">
-      <div class="section-hd" id="hd-now"><span class="section-label">Now</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-now">0</span><span class="chevron">▶</span></div></div>
+      <div class="section-hd" id="hd-now"><span class="section-label">Now</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-now">0</span><span class="chevron">&#9658;</span></div></div>
       <div class="section-body" id="list-now"></div>
     </div>
     <div class="section-wrap">
-      <div class="section-hd" id="hd-next"><span class="section-label">Next</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-next">0</span><span class="chevron">▶</span></div></div>
+      <div class="section-hd" id="hd-next"><span class="section-label">Next</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-next">0</span><span class="chevron">&#9658;</span></div></div>
       <div class="section-body" id="list-next"></div>
     </div>
     <div class="section-wrap">
-      <div class="section-hd" id="hd-future"><span class="section-label">Future</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-future">0</span><span class="chevron">▶</span></div></div>
+      <div class="section-hd" id="hd-future"><span class="section-label">Future</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-future">0</span><span class="chevron">&#9658;</span></div></div>
       <div class="section-body" id="list-future"></div>
     </div>
-    <button class="btn-sync" id="syncBtn">↻ Sync with Sheets</button>
+    <button class="btn-sync" id="syncBtn">Sync with Sheets</button>
   </div>
   <div class="sub-panel" id="subtab-completed">
     <div id="completedList" style="display:flex;flex-direction:column;gap:8px;"></div>
-    <button class="btn-sync" id="syncBtn2">↻ Sync with Sheets</button>
+    <button class="btn-sync" id="syncBtn2">Sync with Sheets</button>
   </div>
 </section>
 
-<!-- ══ MOVIES ══ -->
+<!-- MOVIES -->
 <section class="panel" id="tab-movies">
   <div style="padding:20px 16px 100px">
     <div class="add-row">
-      <input type="text" id="newMovieInput" placeholder="Add a movie…" autocomplete="off" autocorrect="off">
+      <input type="text" id="newMovieInput" placeholder="Add a movie..." autocomplete="off" autocorrect="off">
       <button class="btn-add" id="addMovieBtn">+</button>
     </div>
     <div class="section-wrap">
-      <div class="section-hd" id="wantHd"><span class="section-label">Want to See</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="wantCount">0</span><span class="chevron">▶</span></div></div>
+      <div class="section-hd" id="wantHd"><span class="section-label">Want to See</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="wantCount">0</span><span class="chevron">&#9658;</span></div></div>
       <div class="section-body" id="wantList"></div>
     </div>
     <div class="section-wrap">
-      <div class="section-hd" id="seenHd"><span class="section-label">Have Seen</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="seenCount">0</span><span class="chevron">▶</span></div></div>
+      <div class="section-hd" id="seenHd"><span class="section-label">Have Seen</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="seenCount">0</span><span class="chevron">&#9658;</span></div></div>
       <div class="section-body" id="seenList"></div>
     </div>
-    <button class="btn-sync" id="movieSyncBtn">↻ Sync with Sheets</button>
+    <button class="btn-sync" id="movieSyncBtn">Sync with Sheets</button>
   </div>
 </section>
 
-<!-- ══ CONCERTS ══ -->
+<!-- CONCERTS -->
 <section class="panel" id="tab-concerts">
   <nav class="sub-tabs">
     <button class="sub-tab-btn active" data-subtab="c-upcoming">Upcoming</button>
     <button class="sub-tab-btn" data-subtab="c-myconcerts">My Concerts</button>
     <button class="sub-tab-btn" data-subtab="c-artists">Artists</button>
   </nav>
-
-  <!-- Artists sub-panel -->
   <div class="sub-panel" id="subtab-c-artists">
     <div class="artist-search-wrap">
       <div class="add-row" style="margin-bottom:0">
-        <input type="text" id="artistSearchInput" placeholder="Search for an artist…" autocomplete="off" autocorrect="off">
-        <button class="btn-add" id="artistSearchBtn">🔍</button>
+        <input type="text" id="artistSearchInput" placeholder="Search for an artist..." autocomplete="off" autocorrect="off">
+        <button class="btn-add" id="artistSearchBtn">&#128269;</button>
       </div>
       <div class="artist-results" id="artistResults" style="display:none"></div>
     </div>
     <div style="height:12px"></div>
     <div class="artist-list" id="artistList"></div>
-    <button class="btn-refresh" id="refreshShowsBtn">↻ Refresh Upcoming Shows</button>
-    <button class="btn-sync" id="concertSyncBtn" style="margin-top:8px">↻ Sync with Sheets</button>
+    <button class="btn-refresh" id="refreshShowsBtn">Refresh Upcoming Shows</button>
+    <button class="btn-sync" id="concertSyncBtn" style="margin-top:8px">Sync with Sheets</button>
   </div>
-
-  <!-- Upcoming sub-panel -->
   <div class="sub-panel active" id="subtab-c-upcoming">
     <div id="upcomingList" style="display:flex;flex-direction:column;gap:12px;"></div>
   </div>
-
-  <!-- My Concerts sub-panel -->
   <div class="sub-panel" id="subtab-c-myconcerts">
     <button class="btn-toggle-form" id="toggleAddConcert">+ Log a Concert</button>
     <div class="add-concert-form" id="addConcertForm">
-      <div class="form-field">
-        <label class="form-label">Artist</label>
-        <input class="form-input" id="cf-artist" placeholder="Artist name" autocomplete="off">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Venue</label>
-        <input class="form-input" id="cf-venue" placeholder="Venue name" autocomplete="off">
-      </div>
+      <div class="form-field"><label class="form-label">Artist</label><input class="form-input" id="cf-artist" placeholder="Artist name" autocomplete="off"></div>
+      <div class="form-field"><label class="form-label">Venue</label><input class="form-input" id="cf-venue" placeholder="Venue name" autocomplete="off"></div>
       <div class="form-row">
-        <div class="form-field">
-          <label class="form-label">City</label>
-          <input class="form-input" id="cf-city" placeholder="City" autocomplete="off">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Date</label>
-          <input class="form-input" id="cf-date" type="date">
-        </div>
+        <div class="form-field"><label class="form-label">City</label><input class="form-input" id="cf-city" placeholder="City" autocomplete="off"></div>
+        <div class="form-field"><label class="form-label">Date</label><input class="form-input" id="cf-date" type="date"></div>
       </div>
-      <div class="form-field">
-        <label class="form-label">Notes</label>
-        <input class="form-input" id="cf-notes" placeholder="Any notes…" autocomplete="off">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Setlist URL</label>
-        <input class="form-input" id="cf-url" type="url" placeholder="https://setlist.fm/…" autocomplete="off">
-      </div>
+      <div class="form-field"><label class="form-label">Notes</label><input class="form-input" id="cf-notes" placeholder="Any notes..." autocomplete="off"></div>
+      <div class="form-field"><label class="form-label">Setlist URL</label><input class="form-input" id="cf-url" type="url" placeholder="https://setlist.fm/..." autocomplete="off"></div>
       <button class="btn-form-submit" id="submitConcert">Add to My Concerts</button>
       <button class="btn-form-cancel" id="cancelConcert">Cancel</button>
     </div>
@@ -393,902 +314,28 @@
   </div>
 </section>
 
-<!-- ══ NEWS ══ -->
+<!-- NEWS -->
 <section class="panel" id="tab-news">
   <nav class="sub-tabs">
     <button class="sub-tab-btn active" data-subtab="n-feed">Feed</button>
     <button class="sub-tab-btn" data-subtab="n-topics">Topics</button>
   </nav>
-
-  <!-- Feed sub-panel -->
   <div class="sub-panel active" id="subtab-n-feed">
-    <button class="btn-refresh" id="refreshNewsBtn">↻ Refresh Feed</button>
+    <button class="btn-refresh" id="refreshNewsBtn">Refresh Feed</button>
     <div style="height:12px"></div>
     <div class="news-feed" id="newsFeed"></div>
   </div>
-
-  <!-- Topics sub-panel -->
   <div class="sub-panel" id="subtab-n-topics">
     <div class="add-row">
-      <input type="text" id="newTopicInput" placeholder="Add a topic…" autocomplete="off" autocorrect="off">
+      <input type="text" id="newTopicInput" placeholder="Add a topic..." autocomplete="off" autocorrect="off">
       <button class="btn-add" id="addTopicBtn">+</button>
     </div>
     <div class="topic-list" id="topicList"></div>
-    <button class="btn-sync" id="newsSyncBtn">↻ Sync with Sheets</button>
+    <button class="btn-sync" id="newsSyncBtn">Sync with Sheets</button>
   </div>
 </section>
 
-<script>
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbyjhMsjDWB6YK_6q-jISZJlVta7U6oBGD8GAs5kfDBpq3RF9-PnewbuRYFXix5_n4mluw/exec";
-const SECTIONS  = ['now','next','future'];
-
-let todos     = [];
-let newsTopics = [];
-let newsItems  = [];
-let lifeData   = { places:[], school:[], things:[], work:[] };
-let movies    = [];
-let concerts  = [];   // attended / want-to-go log
-let artists   = [];   // tracked artists {id, name, mbid}
-let shows     = [];   // fetched upcoming shows (not persisted to Sheets)
-let saveTimer = null;
-let dataLoaded = false;
-let activeDrag = null;
-
-// ── Date ──────────────────────────────────────────────────────────────────────
-document.getElementById('dateLine').textContent =
-  new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-
-// ── Tabs ──────────────────────────────────────────────────────────────────────
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
-  });
-});
-
-// Sub-tabs: scoped so each tab's sub-tabs only affect their own panels
-document.querySelectorAll('.sub-tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const parentPanel = btn.closest('.panel');
-    parentPanel.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
-    parentPanel.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('subtab-'+btn.dataset.subtab).classList.add('active');
-  });
-});
-
-// Collapsible section headers
-[...SECTIONS.map(s=>'hd-'+s),'wantHd','seenHd'].forEach(id => {
-  const el = document.getElementById(id); if (!el) return;
-  el.addEventListener('click', () => {
-    const bodyId = id.startsWith('hd-') ? 'list-'+id.slice(3) : id.replace('Hd','List');
-    el.classList.toggle('collapsed');
-    document.getElementById(bodyId).classList.toggle('collapsed');
-  });
-});
-
-// ── Status ────────────────────────────────────────────────────────────────────
-function setStatus(state, msg) {
-  document.getElementById('statusDot').className = 'status-dot '+state;
-  document.getElementById('statusText').textContent = msg;
-}
-
-// ── Utils ─────────────────────────────────────────────────────────────────────
-function uid()  { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
-function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function fmtDate(iso) { if (!iso) return ''; return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
-function parseDateStr(s) {
-  // setlist.fm dates come as dd-MM-yyyy
-  if (!s) return null;
-  const p = s.split('-');
-  if (p.length === 3 && p[2].length === 4) return new Date(+p[2], +p[1]-1, +p[0]);
-  return new Date(s);
-}
-function fmtSetlistDate(s) {
-  const d = parseDateStr(s); if (!d || isNaN(d)) return s||'';
-  return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
-}
-
-// ── Sheets I/O ────────────────────────────────────────────────────────────────
-async function loadFromSheets() {
-  setStatus('syncing','Loading from Sheets…');
-  try {
-    const res  = await fetch(SHEET_URL);
-    const data = await res.json();
-    if (data.todos)    todos    = data.todos;
-    if (data.movies)   movies   = data.movies;
-    if (data.concerts) concerts = data.concerts;
-    if (data.artists)  artists  = data.artists;
-    if (data.newsTopics) newsTopics = data.newsTopics;
-    if (data.lifeData)   lifeData   = Object.assign({places:[],school:[],things:[],work:[]}, data.lifeData);
-    dataLoaded = true;
-    setStatus('synced','Synced · '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
-  } catch(e) {
-    dataLoaded = true;
-    setStatus('error','Offline — working locally');
-  }
-  renderAll();
-}
-
-async function saveAll() {
-  if (!dataLoaded) return;
-  setStatus('syncing','Saving…');
-  try {
-    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({todos,movies,concerts,artists,newsTopics,lifeData})});
-    setStatus('synced','Saved · '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
-  } catch(e) { setStatus('error','Save failed'); }
-}
-
-function scheduleSave() {
-  clearTimeout(saveTimer);
-  const _ld=lifeData; const _ldHas=_ld.places.length||_ld.school.length||_ld.things.length||_ld.work.length;
-  if (todos.length||movies.length||concerts.length||artists.length||newsTopics.length||_ldHas) saveTimer = setTimeout(saveAll,1200);
-}
-async function syncNow() {
-  clearTimeout(saveTimer);
-  if (todos.length||movies.length||concerts.length||artists.length||newsTopics.length||lifeData.places.length||lifeData.school.length||lifeData.things.length||lifeData.work.length) await saveAll();
-  await loadFromSheets();
-}
-
-// ══════════════════════════════════════════════════════════════════════════════
-// POINTER DRAG
-// ══════════════════════════════════════════════════════════════════════════════
-function initDragHandle(handle, todo, sec) {
-  handle.addEventListener('pointerdown', e => {
-    if (todo.done) return;
-    e.preventDefault(); handle.setPointerCapture(e.pointerId);
-    const li = handle.closest('.todo-item'); const rect = li.getBoundingClientRect();
-    const ghost = li.cloneNode(true); ghost.className='drag-ghost';
-    ghost.style.width=rect.width+'px'; ghost.style.height=rect.height+'px';
-    ghost.style.left=rect.left+'px'; ghost.style.top=rect.top+'px';
-    document.body.appendChild(ghost); li.classList.add('is-dragging');
-    activeDrag = { todo, sec, li, ghost, offsetX:e.clientX-rect.left, offsetY:e.clientY-rect.top };
-  });
-  handle.addEventListener('pointermove', e => {
-    if (!activeDrag||activeDrag.todo!==todo) return; e.preventDefault();
-    activeDrag.ghost.style.left=(e.clientX-activeDrag.offsetX)+'px';
-    activeDrag.ghost.style.top=(e.clientY-activeDrag.offsetY)+'px';
-    SECTIONS.forEach(s => {
-      const el=document.getElementById('list-'+s); if(!el) return;
-      const r=el.getBoundingClientRect();
-      el.classList.toggle('drag-over-section', e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom);
-    });
-  });
-  handle.addEventListener('pointerup', e => {
-    if (!activeDrag||activeDrag.todo!==todo) return; e.preventDefault();
-    const { todo:dt, li, ghost } = activeDrag;
-    ghost.remove(); li.classList.remove('is-dragging');
-    SECTIONS.forEach(s => { const el=document.getElementById('list-'+s); if(el) el.classList.remove('drag-over-section'); });
-    let targetSection=null, insertBeforeTodo=null;
-    for (const s of SECTIONS) {
-      const container=document.getElementById('list-'+s); if(!container) continue;
-      const cr=container.getBoundingClientRect();
-      if (e.clientX>=cr.left&&e.clientX<=cr.right&&e.clientY>=cr.top&&e.clientY<=cr.bottom) {
-        targetSection=s;
-        const itemEls=Array.from(container.querySelectorAll('.todo-item:not(.is-dragging)'));
-        for (const itemEl of itemEls) {
-          const ir=itemEl.getBoundingClientRect();
-          if (e.clientY < ir.top+ir.height/2) { insertBeforeTodo=todos.find(t=>t.id===itemEl.dataset.todoId); break; }
-        }
-        break;
-      }
-    }
-    if (targetSection) {
-      dt.section=targetSection;
-      const si=todos.filter(t=>!t.done&&(t.section||'now')===targetSection&&t!==dt).sort((a,b)=>(a.order??0)-(b.order??0));
-      if (insertBeforeTodo&&insertBeforeTodo!==dt) { const ii=si.indexOf(insertBeforeTodo); si.splice(ii>=0?ii:si.length,0,dt); }
-      else si.push(dt);
-      si.forEach((t,i)=>t.order=i); scheduleSave(); renderTodos();
-    }
-    activeDrag=null;
-  });
-  handle.addEventListener('pointercancel', () => {
-    if (!activeDrag||activeDrag.todo!==todo) return;
-    activeDrag.ghost.remove(); activeDrag.li.classList.remove('is-dragging');
-    SECTIONS.forEach(s=>{const el=document.getElementById('list-'+s);if(el)el.classList.remove('drag-over-section');});
-    activeDrag=null;
-  });
-}
-
-// ══════════════════════════════════════════════════════════════════════════════
-// TODOS
-// ══════════════════════════════════════════════════════════════════════════════
-function renderAll() { renderTodos(); renderMovies(); renderArtists(); renderUpcoming(); renderMyConcerts(); renderTopics(); renderLife(); }
-
-function renderTodos() {
-  const completed = todos.filter(t=>t.done).sort((a,b)=>new Date(b.completedAt||0)-new Date(a.completedAt||0));
-  SECTIONS.forEach(sec => {
-    document.getElementById('count-'+sec).textContent = todos.filter(t=>!t.done&&(t.section||'now')===sec).length;
-    const items = todos.filter(t=>(t.section||'now')===sec).sort((a,b)=>{
-      if(!!a.done!==!!b.done) return a.done?1:-1; return (a.order??0)-(b.order??0);
-    });
-    const container=document.getElementById('list-'+sec); container.innerHTML='';
-    if (!items.length) { container.innerHTML=`<div class="empty-state"><div class="empty-icon">·</div><p>Nothing here</p></div>`; return; }
-    items.forEach(todo => container.appendChild(makeTodoItem(todo,sec)));
-  });
-  const container=document.getElementById('completedList'); container.innerHTML='';
-  if (!completed.length) { container.innerHTML=`<div class="empty-state"><div class="empty-icon">✓</div><p>Nothing completed yet</p></div>`; return; }
-  completed.forEach(todo => {
-    const div=document.createElement('div'); div.className='completed-item';
-    div.innerHTML=`<div class="completed-check"><div class="completed-check-box">✓</div></div><span class="completed-text">${esc(todo.text)}</span><span class="completed-meta">${fmtDate(todo.completedAt)}</span><button class="btn-uncomplete">↩</button>`;
-    div.querySelector('.btn-uncomplete').addEventListener('click',()=>{ todo.done=false; todo.completedAt=null; todo.section=todo.section||'now'; scheduleSave(); renderTodos(); });
-    container.appendChild(div);
-  });
-}
-
-function makeTodoItem(todo, sec) {
-  const li=document.createElement('li'); li.className='todo-item'+(todo.done?' done':''); li.dataset.todoId=todo.id;
-  li.innerHTML=`<div class="drag-handle" style="${todo.done?'opacity:0.2;cursor:default;':''}">⠿</div><label class="todo-check"><input type="checkbox" ${todo.done?'checked':''}><div class="check-box"><span class="check-tick">✓</span></div></label><span class="todo-text" style="${todo.done?'text-decoration:line-through;color:var(--hb-fog);':''}">${esc(todo.text)}</span><button class="btn-delete">✕</button>`;
-  if (todo.done) { const cb=li.querySelector('.check-box'); cb.style.background='var(--hb-greenflash)'; cb.style.borderColor='var(--hb-greenflash)'; li.querySelector('.check-tick').style.display='block'; }
-  li.querySelector('input[type=checkbox]').addEventListener('change',e=>{ todo.done=e.target.checked; todo.completedAt=e.target.checked?new Date().toISOString():null; scheduleSave(); renderTodos(); });
-  li.querySelector('.btn-delete').addEventListener('click',()=>{ todos.splice(todos.indexOf(todo),1); scheduleSave(); renderTodos(); });
-  if (!todo.done) initDragHandle(li.querySelector('.drag-handle'),todo,sec);
-  return li;
-}
-
-function addTodo() {
-  const input=document.getElementById('newTodoInput'); const section=document.getElementById('newTodoSection').value; const text=input.value.trim(); if(!text) return;
-  const max=todos.filter(t=>!t.done&&(t.section||'now')===section).reduce((m,t)=>Math.max(m,t.order??0),-1);
-  todos.push({id:uid(),text,done:false,section,order:max+1,createdAt:new Date().toISOString()});
-  input.value=''; document.getElementById('hd-'+section).classList.remove('collapsed'); document.getElementById('list-'+section).classList.remove('collapsed');
-  scheduleSave(); renderTodos();
-}
-document.getElementById('addTodoBtn').addEventListener('click',addTodo);
-document.getElementById('newTodoInput').addEventListener('keydown',e=>{ if(e.key==='Enter') addTodo(); });
-document.getElementById('syncBtn').addEventListener('click',syncNow);
-document.getElementById('syncBtn2').addEventListener('click',syncNow);
-
-// ══════════════════════════════════════════════════════════════════════════════
-// MOVIES
-// ══════════════════════════════════════════════════════════════════════════════
-function renderMovies() {
-  const unseen=movies.filter(m=>!m.seen); const seen=movies.filter(m=>m.seen);
-  document.getElementById('wantCount').textContent=unseen.length;
-  document.getElementById('seenCount').textContent=seen.length;
-  renderMovieList('wantList',unseen,false); renderMovieList('seenList',seen,true);
-}
-function renderMovieList(cId,list,isSeen) {
-  const c=document.getElementById(cId); c.innerHTML='';
-  if (!list.length) { c.innerHTML=`<div class="empty-state"><div class="empty-icon">${isSeen?'🎬':'🍿'}</div><p>${isSeen?'No films rated yet':'Nothing queued up'}</p></div>`; return; }
-  list.forEach(movie => {
-    const card=document.createElement('div'); card.className='movie-card';
-    const main=document.createElement('div'); main.className='movie-main';
-    const tw=document.createElement('div'); tw.className='movie-title-wrap';
-    tw.innerHTML=`<div class="movie-title">${esc(movie.title)}</div>`;
-    if (isSeen) {
-      const sr=document.createElement('div'); sr.className='star-row';
-      for (let i=1;i<=5;i++) { const s=document.createElement('span'); s.className='star'+(i<=(movie.rating||0)?' filled':''); s.textContent='★'; s.addEventListener('click',()=>{ movie.rating=(movie.rating===i)?0:i; scheduleSave(); renderMovies(); }); sr.appendChild(s); }
-      tw.appendChild(sr);
-    } else {
-      const rr=document.createElement('div'); rr.className='rec-row'; rr.innerHTML=`<span class="rec-label">Rec'd by</span>`;
-      const ri=document.createElement('input'); ri.className='rec-input'; ri.type='text'; ri.placeholder='someone…'; ri.value=movie.recommendedBy||'';
-      ri.addEventListener('change',()=>{ movie.recommendedBy=ri.value.trim(); scheduleSave(); }); ri.addEventListener('keydown',e=>{if(e.key==='Enter')ri.blur();}); rr.appendChild(ri); tw.appendChild(rr);
-    }
-    main.appendChild(tw);
-    const acts=document.createElement('div'); acts.className='movie-actions';
-    if (!isSeen) { const mb=document.createElement('button'); mb.className='movie-action-btn mark-seen'; mb.textContent='✓ Seen'; mb.addEventListener('click',()=>{ movie.seen=true; movie.rating=movie.rating||0; scheduleSave(); renderMovies(); }); acts.appendChild(mb); }
-    const db=document.createElement('button'); db.className='movie-action-btn del-movie'; db.textContent='✕'; db.addEventListener('click',()=>{ movies.splice(movies.indexOf(movie),1); scheduleSave(); renderMovies(); }); acts.appendChild(db);
-    main.appendChild(acts); card.appendChild(main); c.appendChild(card);
-  });
-}
-function addMovie() {
-  const input=document.getElementById('newMovieInput'); const title=input.value.trim(); if(!title) return;
-  movies.push({id:uid(),title,seen:false,rating:0,recommendedBy:'',addedAt:new Date().toISOString()});
-  input.value=''; document.getElementById('wantHd').classList.remove('collapsed'); document.getElementById('wantList').classList.remove('collapsed');
-  scheduleSave(); renderMovies();
-}
-document.getElementById('addMovieBtn').addEventListener('click',addMovie);
-document.getElementById('newMovieInput').addEventListener('keydown',e=>{if(e.key==='Enter')addMovie();});
-document.getElementById('movieSyncBtn').addEventListener('click',syncNow);
-
-// ══════════════════════════════════════════════════════════════════════════════
-// CONCERTS — ARTISTS
-// ══════════════════════════════════════════════════════════════════════════════
-let searchTimeout = null;
-
-document.getElementById('artistSearchInput').addEventListener('input', e => {
-  clearTimeout(searchTimeout);
-  const q = e.target.value.trim();
-  if (q.length < 2) { document.getElementById('artistResults').style.display='none'; return; }
-  searchTimeout = setTimeout(() => searchArtists(q), 400);
-});
-
-document.getElementById('artistSearchBtn').addEventListener('click', () => {
-  const q = document.getElementById('artistSearchInput').value.trim();
-  if (q.length >= 2) searchArtists(q);
-});
-
-document.addEventListener('click', e => {
-  if (!e.target.closest('.artist-search-wrap')) {
-    document.getElementById('artistResults').style.display='none';
-  }
-});
-
-async function searchArtists(name) {
-  const resultsEl = document.getElementById('artistResults');
-  resultsEl.style.display='block';
-  resultsEl.innerHTML=`<div style="padding:12px 14px;font-size:0.8rem;color:var(--hb-fog)">Searching…</div>`;
-  try {
-    const res  = await fetch(SHEET_URL+'?action=searchArtist&name='+encodeURIComponent(name));
-    const data = await res.json();
-    const hits = data.artist || [];
-    if (!hits.length) { resultsEl.innerHTML=`<div style="padding:12px 14px;font-size:0.8rem;color:var(--hb-fog)">No artists found</div>`; return; }
-    resultsEl.innerHTML='';
-    hits.slice(0,8).forEach(a => {
-      const div=document.createElement('div'); div.className='artist-result-item';
-      div.innerHTML=`<div class="artist-result-name">${esc(a.name)}</div><div class="artist-result-meta">${esc(a.disambiguation||'')}${a.sortName&&a.sortName!==a.name?' · '+esc(a.sortName):''}</div>`;
-      div.addEventListener('click', () => {
-        addArtist(a.name, a.mbid);
-        document.getElementById('artistSearchInput').value='';
-        resultsEl.style.display='none';
-      });
-      resultsEl.appendChild(div);
-    });
-  } catch(e) {
-    resultsEl.innerHTML=`<div style="padding:12px 14px;font-size:0.8rem;color:var(--hb-fog)">Search failed — check connection</div>`;
-  }
-}
-
-function addArtist(name, mbid) {
-  if (artists.find(a=>a.mbid===mbid)) return; // already tracked
-  artists.push({id:uid(), name, mbid, addedAt:new Date().toISOString()});
-  scheduleSave(); renderArtists();
-}
-
-function renderArtists() {
-  const container = document.getElementById('artistList'); container.innerHTML='';
-  if (!artists.length) {
-    container.innerHTML=`<div class="empty-state"><div class="empty-icon">🎵</div><p>No artists tracked yet</p></div>`; return;
-  }
-  artists.forEach(artist => {
-    const div=document.createElement('div'); div.className='artist-item';
-    div.innerHTML=`<span class="artist-name">${esc(artist.name)}</span><button class="btn-remove-artist">✕</button>`;
-    div.querySelector('.btn-remove-artist').addEventListener('click', () => {
-      artists.splice(artists.indexOf(artist),1); scheduleSave(); renderArtists();
-    });
-    container.appendChild(div);
-  });
-}
-
-// ══════════════════════════════════════════════════════════════════════════════
-// CONCERTS — UPCOMING SHOWS (fetched via Apps Script proxy)
-// ══════════════════════════════════════════════════════════════════════════════
-document.getElementById('refreshShowsBtn').addEventListener('click', fetchUpcomingShows);
-
-async function fetchUpcomingShows() {
-  if (!artists.length) { alert('Add some artists first!'); return; }
-  const btn = document.getElementById('refreshShowsBtn');
-  btn.disabled=true; btn.textContent='Fetching…';
-  shows = [];
-  const today = new Date(); today.setHours(0,0,0,0);
-
-  for (const artist of artists) {
-    if (!artist.mbid) continue;
-    try {
-      const res  = await fetch(SHEET_URL+'?action=getShows&mbid='+encodeURIComponent(artist.mbid));
-      const data = await res.json();
-      const setlists = data.setlist || [];
-      setlists.forEach(s => {
-        const d = parseDateStr(s.eventDate);
-        if (!d || isNaN(d)) return;
-        // setlist.fm returns recent shows — we want upcoming ones (future dates)
-        if (d < today) return;
-        shows.push({
-          id:       s.id||uid(),
-          artistName: artist.name,
-          artistMbid: artist.mbid,
-          venue:    s.venue?.name||'',
-          city:     [s.venue?.city?.name, s.venue?.city?.country?.name].filter(Boolean).join(', '),
-          date:     s.eventDate,
-          url:      s.url||'',
-          status:   'none', // none | want | ignored
-        });
-      });
-    } catch(e) { /* skip artist on error */ }
-  }
-
-  // Restore any want/ignore flags already set
-  shows.forEach(sh => {
-    const saved = concerts.find(c=>c.id===sh.id);
-    if (saved) sh.status = saved.status||'none';
-  });
-
-  btn.disabled=false; btn.textContent='↻ Refresh Upcoming Shows';
-  renderUpcoming();
-
-  // Switch to Upcoming tab
-  const concertsPanel = document.getElementById('tab-concerts');
-  concertsPanel.querySelectorAll('.sub-tab-btn').forEach(b=>b.classList.remove('active'));
-  concertsPanel.querySelectorAll('.sub-panel').forEach(p=>p.classList.remove('active'));
-  concertsPanel.querySelector('[data-subtab="c-upcoming"]').classList.add('active');
-  document.getElementById('subtab-c-upcoming').classList.add('active');
-}
-
-function renderUpcoming() {
-  const container = document.getElementById('upcomingList'); container.innerHTML='';
-  const visible = shows.filter(s=>s.status!=='ignored').sort((a,b)=>{
-    // want-to-go first, then by date
-    if ((a.status==='want')!==(b.status==='want')) return a.status==='want'?-1:1;
-    return (parseDateStr(a.date)||0)-(parseDateStr(b.date)||0);
-  });
-  if (!visible.length) {
-    container.innerHTML=`<div class="empty-state"><div class="empty-icon">🎸</div><p>${shows.length?'No upcoming shows':'Refresh to load shows'}</p></div>`; return;
-  }
-  visible.forEach(show => {
-    const card=document.createElement('div'); card.className='show-card'+(show.status==='want'?' want-to-go':'');
-    card.innerHTML=`
-      <div class="show-main">
-        <div class="show-artist">${esc(show.artistName)}</div>
-        <div class="show-venue">${esc(show.venue)}</div>
-        <div class="show-city">${esc(show.city)}</div>
-        <div class="show-date">${fmtSetlistDate(show.date)}</div>
-        ${show.status==='want'?'<span class="want-badge">⭐ Want to Go</span>':''}
-      </div>
-      <div class="show-actions">
-        <button class="show-action-btn want ${show.status==='want'?'active-state':''}">${show.status==='want'?'✓ Want to Go':'★ Want to Go'}</button>
-        <button class="show-action-btn ignore">Ignore</button>
-      </div>`;
-    card.querySelector('.show-action-btn.want').addEventListener('click', () => {
-      show.status = show.status==='want' ? 'none' : 'want';
-      syncShowStatus(show); renderUpcoming();
-    });
-    card.querySelector('.show-action-btn.ignore').addEventListener('click', () => {
-      show.status='ignored'; syncShowStatus(show); renderUpcoming();
-    });
-    container.appendChild(card);
-  });
-}
-
-function syncShowStatus(show) {
-  // Mirror want/ignore status into concerts array so it persists
-  const existing = concerts.find(c=>c.id===show.id);
-  if (show.status==='none') {
-    if (existing) concerts.splice(concerts.indexOf(existing),1);
-  } else {
-    if (existing) { existing.status=show.status; }
-    else { concerts.push({ id:show.id, artistName:show.artistName, venue:show.venue, city:show.city, date:show.date, status:show.status, rating:0, notes:'', setlistUrl:show.url, addedAt:new Date().toISOString() }); }
-  }
-  scheduleSave();
-}
-
-// ══════════════════════════════════════════════════════════════════════════════
-// CONCERTS — MY CONCERTS
-// ══════════════════════════════════════════════════════════════════════════════
-document.getElementById('toggleAddConcert').addEventListener('click', () => {
-  const form=document.getElementById('addConcertForm');
-  form.classList.toggle('open');
-  document.getElementById('toggleAddConcert').style.display = form.classList.contains('open') ? 'none' : 'flex';
-});
-document.getElementById('cancelConcert').addEventListener('click', () => {
-  document.getElementById('addConcertForm').classList.remove('open');
-  document.getElementById('toggleAddConcert').style.display='flex';
-});
-document.getElementById('submitConcert').addEventListener('click', () => {
-  const artist = document.getElementById('cf-artist').value.trim();
-  const venue  = document.getElementById('cf-venue').value.trim();
-  if (!artist||!venue) { alert('Artist and venue are required.'); return; }
-  concerts.push({
-    id:uid(), artistName:artist, venue,
-    city:  document.getElementById('cf-city').value.trim(),
-    date:  document.getElementById('cf-date').value,
-    status:'attended',
-    rating:0,
-    notes: document.getElementById('cf-notes').value.trim(),
-    setlistUrl: document.getElementById('cf-url').value.trim(),
-    addedAt: new Date().toISOString()
-  });
-  ['cf-artist','cf-venue','cf-city','cf-notes','cf-url'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('cf-date').value='';
-  document.getElementById('addConcertForm').classList.remove('open');
-  document.getElementById('toggleAddConcert').style.display='flex';
-  scheduleSave(); renderMyConcerts();
-});
-
-function renderMyConcerts() {
-  const container=document.getElementById('myConcertsList'); container.innerHTML='';
-  const attended = concerts.filter(c=>c.status==='attended').sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
-  if (!attended.length) {
-    container.innerHTML=`<div class="empty-state"><div class="empty-icon">🎟️</div><p>No concerts logged yet</p></div>`; return;
-  }
-  attended.forEach(c => {
-    const card=document.createElement('div'); card.className='concert-card';
-
-    // Stars
-    let starHtml='';
-    for(let i=1;i<=5;i++) starHtml+=`<span class="concert-star${i<=(c.rating||0)?' filled':''}">★</span>`;
-
-    card.innerHTML=`
-      <div class="concert-main">
-        <div class="concert-artist">${esc(c.artistName)}</div>
-        <div class="concert-venue">${esc(c.venue)}</div>
-        <div class="concert-city">${esc(c.city)}</div>
-        <div class="concert-date">${c.date?new Date(c.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'}):''}</div>
-        <div class="concert-star-row">${starHtml}</div>
-        <div class="concert-notes-row">
-          <input class="concert-notes-input" type="text" placeholder="Notes…" value="${esc(c.notes||'')}">
-        </div>
-        <div class="concert-link-row">
-          <span class="concert-link-label">Setlist</span>
-          <input class="concert-link-input" type="url" placeholder="https://setlist.fm/…" value="${esc(c.setlistUrl||'')}">
-        </div>
-      </div>
-      <div class="concert-footer">
-        <button class="concert-footer-btn open-link">Open Setlist ↗</button>
-        <button class="concert-footer-btn del-concert">Remove</button>
-      </div>`;
-
-    // Star clicks
-    card.querySelectorAll('.concert-star').forEach((star,i) => {
-      star.addEventListener('click',()=>{ c.rating=(c.rating===i+1)?0:i+1; scheduleSave(); renderMyConcerts(); });
-    });
-
-    // Notes
-    card.querySelector('.concert-notes-input').addEventListener('change', e => {
-      c.notes=e.target.value.trim(); scheduleSave();
-    });
-
-    // Setlist URL
-    card.querySelector('.concert-link-input').addEventListener('change', e => {
-      c.setlistUrl=e.target.value.trim(); scheduleSave();
-    });
-
-    // Open setlist
-    card.querySelector('.open-link').addEventListener('click',()=>{ if(c.setlistUrl) window.open(c.setlistUrl,'_blank'); });
-
-    // Delete
-    card.querySelector('.del-concert').addEventListener('click',()=>{ concerts.splice(concerts.indexOf(c),1); scheduleSave(); renderMyConcerts(); });
-
-    container.appendChild(card);
-  });
-}
-
-document.getElementById('concertSyncBtn').addEventListener('click', syncNow);
-
-
-// ══════════════════════════════════════════════════════════════════════════════
-// NEWS
-// ══════════════════════════════════════════════════════════════════════════════
-const DEFAULT_TOPICS = ['Huckberry','Music concerts','Outdoor gear','Fly fishing'];
-const RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
-
-function googleNewsUrl(topic) {
-  return 'https://news.google.com/rss/search?q=' + encodeURIComponent(topic) + '&hl=en-US&gl=US&ceid=US:en';
-}
-
-function renderTopics() {
-  const container = document.getElementById('topicList'); container.innerHTML = '';
-  // Seed defaults on first load
-  if (newsTopics.length === 0) {
-    DEFAULT_TOPICS.forEach(t => newsTopics.push({ id: uid(), name: t }));
-    scheduleSave();
-  }
-  newsTopics.forEach(topic => {
-    const div = document.createElement('div'); div.className = 'topic-item';
-    div.innerHTML = `<span class="topic-name">${esc(topic.name)}</span><button class="btn-remove-topic">✕</button>`;
-    div.querySelector('.btn-remove-topic').addEventListener('click', () => {
-      newsTopics.splice(newsTopics.indexOf(topic), 1); scheduleSave(); renderTopics();
-    });
-    container.appendChild(div);
-  });
-}
-
-function addTopic() {
-  const input = document.getElementById('newTopicInput');
-  const name  = input.value.trim(); if (!name) return;
-  newsTopics.push({ id: uid(), name });
-  input.value = ''; scheduleSave(); renderTopics();
-}
-document.getElementById('addTopicBtn').addEventListener('click', addTopic);
-document.getElementById('newTopicInput').addEventListener('keydown', e => { if (e.key === 'Enter') addTopic(); });
-document.getElementById('newsSyncBtn').addEventListener('click', syncNow);
-
-document.getElementById('refreshNewsBtn').addEventListener('click', fetchNews);
-
-async function fetchNews() {
-  if (!newsTopics.length) {
-    document.getElementById('newsFeed').innerHTML = `<div class="empty-state"><div class="empty-icon">📰</div><p>Add topics first</p></div>`;
-    return;
-  }
-  const btn = document.getElementById('refreshNewsBtn');
-  btn.disabled = true; btn.textContent = 'Fetching…';
-  newsItems = [];
-
-  await Promise.all(newsTopics.map(async topic => {
-    try {
-      const url  = RSS2JSON + encodeURIComponent(googleNewsUrl(topic.name)) + '&count=10';
-      const res  = await fetch(url);
-      const data = await res.json();
-      if (data.status === 'ok' && Array.isArray(data.items)) {
-        data.items.forEach(item => {
-          newsItems.push({
-            id:      item.guid || item.link,
-            topic:   topic.name,
-            title:   item.title.replace(/\s*-\s*[\w\s]+$/, '').trim(), // strip trailing source
-            source:  item.author || extractSource(item.title),
-            date:    item.pubDate,
-            url:     item.link,
-          });
-        });
-      }
-    } catch(e) { /* skip topic on error */ }
-  }));
-
-  // Sort all items by date, newest first, dedupe by URL
-  const seen = new Set();
-  newsItems = newsItems
-    .filter(i => { if (seen.has(i.url)) return false; seen.add(i.url); return true; })
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  btn.disabled = false; btn.textContent = '↻ Refresh Feed';
-  renderFeed();
-
-  // Switch to Feed sub-tab
-  const newsPanel = document.getElementById('tab-news');
-  newsPanel.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
-  newsPanel.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
-  newsPanel.querySelector('[data-subtab="n-feed"]').classList.add('active');
-  document.getElementById('subtab-n-feed').classList.add('active');
-}
-
-function extractSource(title) {
-  // Google News titles often end with " - Source Name"
-  const m = title.match(/- ([^-]+)$/);
-  return m ? m[1].trim() : '';
-}
-
-function fmtNewsDate(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  const now = new Date();
-  const diff = now - d;
-  const mins = Math.floor(diff / 60000);
-  if (mins < 60)   return mins + 'm ago';
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24)    return hrs + 'h ago';
-  const days = Math.floor(hrs / 24);
-  if (days < 7)    return days + 'd ago';
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-
-function renderFeed() {
-  const container = document.getElementById('newsFeed'); container.innerHTML = '';
-  if (!newsItems.length) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon">📰</div><p>No articles found — try refreshing</p></div>`; return;
-  }
-  newsItems.forEach(item => {
-    const a = document.createElement('a');
-    a.className = 'news-item';
-    a.href = item.url;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.innerHTML = `
-      <div class="news-topic-tag">${esc(item.topic)}</div>
-      <div class="news-headline">${esc(item.title)}</div>
-      <div class="news-meta">
-        <span class="news-source">${esc(item.source)}</span>
-        <span>·</span>
-        <span class="news-date">${fmtNewsDate(item.date)}</span>
-      </div>`;
-    container.appendChild(a);
-  });
-}
-
-
-// ══════════════════════════════════════════════════════════════════════════════
-// LIFE RESUME
-// ══════════════════════════════════════════════════════════════════════════════
-
-// Collapsible section headers for Life tab
-['hd-lr-homes','hd-lr-stays'].forEach(id => {
-  const el = document.getElementById(id); if (!el) return;
-  el.addEventListener('click', () => {
-    const bodyId = id.replace('hd-lr-','list-lr-');
-    el.classList.toggle('collapsed');
-    const body = document.getElementById(bodyId);
-    if (body) body.classList.toggle('collapsed');
-  });
-});
-
-function renderLife() {
-  try { renderPlaces(); } catch(e) { console.error('renderPlaces',e); }
-  try { renderSchool(); } catch(e) { console.error('renderSchool',e); }
-  try { renderThings(); } catch(e) { console.error('renderThings',e); }
-  try { renderWork();   } catch(e) { console.error('renderWork',e);   }
-}
-
-// ── Toggle forms ──────────────────────────────────────────────────────────────
-function setupToggleForm(toggleId, formId, cancelId) {
-  const toggleBtn = document.getElementById(toggleId);
-  const form      = document.getElementById(formId);
-  const cancelBtn = document.getElementById(cancelId);
-  if (!toggleBtn || !form || !cancelBtn) return;
-  toggleBtn.addEventListener('click', () => {
-    form.classList.toggle('open');
-    toggleBtn.style.display = form.classList.contains('open') ? 'none' : 'flex';
-  });
-  cancelBtn.addEventListener('click', () => {
-    form.classList.remove('open');
-    toggleBtn.style.display = 'flex';
-  });
-}
-setupToggleForm('togglePlaceForm',  'placeForm',  'cancelPlace');
-setupToggleForm('toggleSchoolForm', 'schoolForm', 'cancelSchool');
-setupToggleForm('toggleThingForm',  'thingForm',  'cancelThing');
-setupToggleForm('toggleWorkForm',   'workForm',   'cancelWork');
-
-function closeForm(formId, toggleId) {
-  const form = document.getElementById(formId);
-  const btn  = document.getElementById(toggleId);
-  if (form) form.classList.remove('open');
-  if (btn)  btn.style.display = 'flex';
-}
-function clearFields(ids) { ids.forEach(id => { const el=document.getElementById(id); if(el) el.value=''; }); }
-
-// ── Generic card renderer ─────────────────────────────────────────────────────
-function makeLRCard({ title, subtitle, meta, tag, tagClass, notes, item, collection, onDelete, onNotesChange }) {
-  const card = document.createElement('div'); card.className = 'lr-card';
-  const tagHtml = tag ? `<span class="lr-tag ${tagClass||''}">${esc(tag)}</span>` : '';
-  card.innerHTML = `
-    <div class="lr-body">
-      ${tagHtml}
-      <div class="lr-title">${esc(title)}</div>
-      ${subtitle ? `<div class="lr-subtitle">${esc(subtitle)}</div>` : ''}
-      ${meta     ? `<div class="lr-meta">${esc(meta)}</div>` : ''}
-      <input class="lr-notes-input" type="text" placeholder="Notes…" value="${esc(notes||'')}">
-    </div>
-    <div class="lr-footer">
-      <button class="lr-footer-btn del">Remove</button>
-    </div>`;
-  card.querySelector('.lr-notes-input').addEventListener('change', e => {
-    item.notes = e.target.value.trim(); scheduleSave();
-  });
-  card.querySelector('.del').addEventListener('click', () => {
-    collection.splice(collection.indexOf(item), 1); scheduleSave(); onDelete();
-  });
-  return card;
-}
-
-// ── PLACES ────────────────────────────────────────────────────────────────────
-document.getElementById('submitPlace').addEventListener('click', () => {
-  const name = document.getElementById('pf-name').value.trim();
-  if (!name) { alert('Location name is required.'); return; }
-  lifeData.places.push({
-    id: uid(), name,
-    address: document.getElementById('pf-address').value.trim(),
-    from:    document.getElementById('pf-from').value.trim(),
-    to:      document.getElementById('pf-to').value.trim(),
-    type:    document.getElementById('pf-type').value,
-    notes:   document.getElementById('pf-notes').value.trim(),
-    addedAt: new Date().toISOString()
-  });
-  clearFields(['pf-name','pf-address','pf-from','pf-to','pf-notes']);
-  closeForm('placeForm','togglePlaceForm');
-  scheduleSave(); renderPlaces();
-});
-
-function renderPlaces() {
-  const homes = lifeData.places.filter(p => p.type === 'home');
-  const stays = lifeData.places.filter(p => p.type === 'stay');
-  document.getElementById('count-lr-homes').textContent = homes.length;
-  document.getElementById('count-lr-stays').textContent = stays.length;
-  renderPlaceList('list-lr-homes', homes);
-  renderPlaceList('list-lr-stays', stays);
-}
-
-function renderPlaceList(containerId, list) {
-  const c = document.getElementById(containerId); c.innerHTML = '';
-  if (!list.length) { c.innerHTML = `<div class="empty-state"><div class="empty-icon">📍</div><p>None added yet</p></div>`; return; }
-  list.forEach(p => {
-    const dates = [p.from, p.to].filter(Boolean).join(' – ');
-    c.appendChild(makeLRCard({
-      title: p.name, subtitle: p.address||'', meta: dates,
-      notes: p.notes, item: p, collection: lifeData.places,
-      onDelete: renderPlaces
-    }));
-  });
-}
-
-// ── SCHOOL ────────────────────────────────────────────────────────────────────
-document.getElementById('submitSchool').addEventListener('click', () => {
-  const name = document.getElementById('sf-name').value.trim();
-  if (!name) { alert('School name is required.'); return; }
-  lifeData.school.push({
-    id: uid(), level: document.getElementById('sf-level').value,
-    name, location: document.getElementById('sf-location').value.trim(),
-    from: document.getElementById('sf-from').value.trim(),
-    to:   document.getElementById('sf-to').value.trim(),
-    notes: document.getElementById('sf-notes').value.trim(),
-    addedAt: new Date().toISOString()
-  });
-  clearFields(['sf-name','sf-location','sf-from','sf-to','sf-notes']);
-  closeForm('schoolForm','toggleSchoolForm');
-  scheduleSave(); renderSchool();
-});
-
-function renderSchool() {
-  const c = document.getElementById('schoolList'); c.innerHTML = '';
-  const sorted = [...lifeData.school].sort((a,b) => (b.from||'') > (a.from||'') ? 1 : -1);
-  if (!sorted.length) { c.innerHTML = `<div class="empty-state"><div class="empty-icon">🎓</div><p>No education added yet</p></div>`; return; }
-  sorted.forEach(s => {
-    const dates = [s.from, s.to].filter(Boolean).join(' – ');
-    c.appendChild(makeLRCard({
-      title: s.name, subtitle: s.location||'',
-      meta: [s.level, dates].filter(Boolean).join(' · '),
-      notes: s.notes, item: s, collection: lifeData.school,
-      onDelete: renderSchool
-    }));
-  });
-}
-
-// ── THINGS DONE ───────────────────────────────────────────────────────────────
-document.getElementById('submitThing').addEventListener('click', () => {
-  const desc = document.getElementById('tf-desc').value.trim();
-  if (!desc) { alert('Description is required.'); return; }
-  lifeData.things.push({
-    id: uid(), type: document.getElementById('tf-type').value,
-    description: desc, year: document.getElementById('tf-year').value.trim(),
-    notes: '', addedAt: new Date().toISOString()
-  });
-  clearFields(['tf-desc','tf-year']);
-  closeForm('thingForm','toggleThingForm');
-  scheduleSave(); renderThings();
-});
-
-function renderThings() {
-  const c = document.getElementById('thingsList'); c.innerHTML = '';
-  const sorted = [...lifeData.things].sort((a,b) => (b.year||'') > (a.year||'') ? 1 : -1);
-  if (!sorted.length) { c.innerHTML = `<div class="empty-state"><div class="empty-icon">⭐</div><p>No entries yet</p></div>`; return; }
-  const typeLabels = { event:'Event', accomplishment:'Accomplishment', cool:'Cool Moment' };
-  sorted.forEach(t => {
-    c.appendChild(makeLRCard({
-      title: t.description, meta: t.year||'',
-      tag: typeLabels[t.type]||t.type, tagClass: t.type,
-      notes: t.notes, item: t, collection: lifeData.things,
-      onDelete: renderThings
-    }));
-  });
-}
-
-// ── WORK ──────────────────────────────────────────────────────────────────────
-document.getElementById('submitWork').addEventListener('click', () => {
-  const employer = document.getElementById('wf-employer').value.trim();
-  if (!employer) { alert('Employer is required.'); return; }
-  lifeData.work.push({
-    id: uid(), employer,
-    description: document.getElementById('wf-desc').value.trim(),
-    from:  document.getElementById('wf-from').value.trim(),
-    to:    document.getElementById('wf-to').value.trim(),
-    notes: document.getElementById('wf-notes').value.trim(),
-    addedAt: new Date().toISOString()
-  });
-  clearFields(['wf-employer','wf-desc','wf-from','wf-to','wf-notes']);
-  closeForm('workForm','toggleWorkForm');
-  scheduleSave(); renderWork();
-});
-
-function renderWork() {
-  const c = document.getElementById('workList'); c.innerHTML = '';
-  const sorted = [...lifeData.work].sort((a,b) => (b.from||'') > (a.from||'') ? 1 : -1);
-  if (!sorted.length) { c.innerHTML = `<div class="empty-state"><div class="empty-icon">💼</div><p>No work history added yet</p></div>`; return; }
-  sorted.forEach(w => {
-    const dates = [w.from, w.to].filter(Boolean).join(' – ');
-    c.appendChild(makeLRCard({
-      title: w.employer, subtitle: w.description||'', meta: dates,
-      notes: w.notes, item: w, collection: lifeData.work,
-      onDelete: renderWork
-    }));
-  });
-}
-
-document.getElementById('lifeSyncBtn').addEventListener('click', syncNow);
-
-// ── Boot ──────────────────────────────────────────────────────────────────────
-loadFromSheets();
-</script>
-
-<!-- ══ LIFE RESUME ══ -->
+<!-- LIFE RESUME -->
 <section class="panel" id="tab-life">
   <nav class="sub-tabs">
     <button class="sub-tab-btn active" data-subtab="lr-places">Places</button>
@@ -1297,58 +344,36 @@ loadFromSheets();
     <button class="sub-tab-btn" data-subtab="lr-work">Work</button>
   </nav>
 
-  <!-- Places Lived -->
+  <!-- Places -->
   <div class="sub-panel active" id="subtab-lr-places">
     <button class="btn-toggle-form" id="togglePlaceForm">+ Add a Place</button>
     <div class="lr-form" id="placeForm">
-      <div class="form-field">
-        <label class="form-label">Location Name</label>
-        <input class="form-input" id="pf-name" placeholder="e.g. Brooklyn, NY" autocomplete="off">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Address</label>
-        <input class="form-input" id="pf-address" placeholder="Street address (optional)" autocomplete="off">
-      </div>
+      <div class="form-field"><label class="form-label">Location Name</label><input class="form-input" id="pf-name" placeholder="e.g. Brooklyn, NY" autocomplete="off"></div>
+      <div class="form-field"><label class="form-label">Address</label><input class="form-input" id="pf-address" placeholder="Street address (optional)" autocomplete="off"></div>
       <div class="form-row">
-        <div class="form-field">
-          <label class="form-label">From</label>
-          <input class="form-input" id="pf-from" placeholder="Year or date" autocomplete="off">
-        </div>
-        <div class="form-field">
-          <label class="form-label">To</label>
-          <input class="form-input" id="pf-to" placeholder="Year or 'Present'" autocomplete="off">
-        </div>
+        <div class="form-field"><label class="form-label">From</label><input class="form-input" id="pf-from" placeholder="Year or date" autocomplete="off"></div>
+        <div class="form-field"><label class="form-label">To</label><input class="form-input" id="pf-to" placeholder="Year or Present" autocomplete="off"></div>
       </div>
       <div class="form-field">
         <label class="form-label">Type</label>
-        <select class="form-input add-section-select" id="pf-type" style="height:40px;padding:0 12px;">
+        <select class="form-input" id="pf-type" style="height:40px;padding:0 12px;">
           <option value="home">Home</option>
           <option value="stay">Shorter Stay</option>
         </select>
       </div>
-      <div class="form-field">
-        <label class="form-label">Notes</label>
-        <input class="form-input" id="pf-notes" placeholder="Any notes…" autocomplete="off">
-      </div>
+      <div class="form-field"><label class="form-label">Notes</label><input class="form-input" id="pf-notes" placeholder="Any notes..." autocomplete="off"></div>
       <button class="btn-form-submit" id="submitPlace">Add Place</button>
       <button class="btn-form-cancel" id="cancelPlace">Cancel</button>
     </div>
-
     <div class="section-wrap">
-      <div class="section-hd" id="hd-lr-homes">
-        <span class="section-label">Homes</span>
-        <div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-lr-homes">0</span><span class="chevron">▶</span></div>
-      </div>
+      <div class="section-hd" id="hd-lr-homes"><span class="section-label">Homes</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-lr-homes">0</span><span class="chevron">&#9658;</span></div></div>
       <div class="section-body" id="list-lr-homes"></div>
     </div>
     <div class="section-wrap">
-      <div class="section-hd" id="hd-lr-stays">
-        <span class="section-label">Shorter Stays</span>
-        <div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-lr-stays">0</span><span class="chevron">▶</span></div>
-      </div>
+      <div class="section-hd" id="hd-lr-stays"><span class="section-label">Shorter Stays</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-lr-stays">0</span><span class="chevron">&#9658;</span></div></div>
       <div class="section-body" id="list-lr-stays"></div>
     </div>
-    <button class="btn-sync" id="lifeSyncBtn">↻ Sync with Sheets</button>
+    <button class="btn-sync" id="lifeSyncBtn">Sync with Sheets</button>
   </div>
 
   <!-- School -->
@@ -1357,7 +382,7 @@ loadFromSheets();
     <div class="lr-form" id="schoolForm">
       <div class="form-field">
         <label class="form-label">Education Level</label>
-        <select class="form-input add-section-select" id="sf-level" style="height:40px;padding:0 12px;">
+        <select class="form-input" id="sf-level" style="height:40px;padding:0 12px;">
           <option value="High School">High School</option>
           <option value="Associate's">Associate's</option>
           <option value="Bachelor's">Bachelor's</option>
@@ -1366,28 +391,13 @@ loadFromSheets();
           <option value="Certificate">Certificate / Other</option>
         </select>
       </div>
-      <div class="form-field">
-        <label class="form-label">School Name</label>
-        <input class="form-input" id="sf-name" placeholder="School or university" autocomplete="off">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Location</label>
-        <input class="form-input" id="sf-location" placeholder="City, State" autocomplete="off">
-      </div>
+      <div class="form-field"><label class="form-label">School Name</label><input class="form-input" id="sf-name" placeholder="School or university" autocomplete="off"></div>
+      <div class="form-field"><label class="form-label">Location</label><input class="form-input" id="sf-location" placeholder="City, State" autocomplete="off"></div>
       <div class="form-row">
-        <div class="form-field">
-          <label class="form-label">From</label>
-          <input class="form-input" id="sf-from" placeholder="Year" autocomplete="off">
-        </div>
-        <div class="form-field">
-          <label class="form-label">To</label>
-          <input class="form-input" id="sf-to" placeholder="Year" autocomplete="off">
-        </div>
+        <div class="form-field"><label class="form-label">From</label><input class="form-input" id="sf-from" placeholder="Year" autocomplete="off"></div>
+        <div class="form-field"><label class="form-label">To</label><input class="form-input" id="sf-to" placeholder="Year" autocomplete="off"></div>
       </div>
-      <div class="form-field">
-        <label class="form-label">Notes</label>
-        <input class="form-input" id="sf-notes" placeholder="Major, memories…" autocomplete="off">
-      </div>
+      <div class="form-field"><label class="form-label">Notes</label><input class="form-input" id="sf-notes" placeholder="Major, memories..." autocomplete="off"></div>
       <button class="btn-form-submit" id="submitSchool">Add Education</button>
       <button class="btn-form-cancel" id="cancelSchool">Cancel</button>
     </div>
@@ -1400,20 +410,14 @@ loadFromSheets();
     <div class="lr-form" id="thingForm">
       <div class="form-field">
         <label class="form-label">Type</label>
-        <select class="form-input add-section-select" id="tf-type" style="height:40px;padding:0 12px;">
+        <select class="form-input" id="tf-type" style="height:40px;padding:0 12px;">
           <option value="event">Event</option>
           <option value="accomplishment">Accomplishment</option>
           <option value="cool">Cool Moment</option>
         </select>
       </div>
-      <div class="form-field">
-        <label class="form-label">Description</label>
-        <input class="form-input" id="tf-desc" placeholder="What happened?" autocomplete="off">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Year</label>
-        <input class="form-input" id="tf-year" placeholder="e.g. 2019" autocomplete="off">
-      </div>
+      <div class="form-field"><label class="form-label">Description</label><input class="form-input" id="tf-desc" placeholder="What happened?" autocomplete="off"></div>
+      <div class="form-field"><label class="form-label">Year</label><input class="form-input" id="tf-year" placeholder="e.g. 2019" autocomplete="off"></div>
       <button class="btn-form-submit" id="submitThing">Add Entry</button>
       <button class="btn-form-cancel" id="cancelThing">Cancel</button>
     </div>
@@ -1424,33 +428,493 @@ loadFromSheets();
   <div class="sub-panel" id="subtab-lr-work">
     <button class="btn-toggle-form" id="toggleWorkForm">+ Add a Job</button>
     <div class="lr-form" id="workForm">
-      <div class="form-field">
-        <label class="form-label">Employer</label>
-        <input class="form-input" id="wf-employer" placeholder="Company name" autocomplete="off">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Role / Description</label>
-        <input class="form-input" id="wf-desc" placeholder="Your role or what you did" autocomplete="off">
-      </div>
+      <div class="form-field"><label class="form-label">Employer</label><input class="form-input" id="wf-employer" placeholder="Company name" autocomplete="off"></div>
+      <div class="form-field"><label class="form-label">Role / Description</label><input class="form-input" id="wf-desc" placeholder="Your role or what you did" autocomplete="off"></div>
       <div class="form-row">
-        <div class="form-field">
-          <label class="form-label">From</label>
-          <input class="form-input" id="wf-from" placeholder="Year" autocomplete="off">
-        </div>
-        <div class="form-field">
-          <label class="form-label">To</label>
-          <input class="form-input" id="wf-to" placeholder="Year or 'Present'" autocomplete="off">
-        </div>
+        <div class="form-field"><label class="form-label">From</label><input class="form-input" id="wf-from" placeholder="Year" autocomplete="off"></div>
+        <div class="form-field"><label class="form-label">To</label><input class="form-input" id="wf-to" placeholder="Year or Present" autocomplete="off"></div>
       </div>
-      <div class="form-field">
-        <label class="form-label">Notes</label>
-        <input class="form-input" id="wf-notes" placeholder="Any notes…" autocomplete="off">
-      </div>
+      <div class="form-field"><label class="form-label">Notes</label><input class="form-input" id="wf-notes" placeholder="Any notes..." autocomplete="off"></div>
       <button class="btn-form-submit" id="submitWork">Add Job</button>
       <button class="btn-form-cancel" id="cancelWork">Cancel</button>
     </div>
     <div id="workList" style="display:flex;flex-direction:column;gap:12px;"></div>
   </div>
 </section>
+
+<script>
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyjhMsjDWB6YK_6q-jISZJlVta7U6oBGD8GAs5kfDBpq3RF9-PnewbuRYFXix5_n4mluw/exec";
+const SECTIONS  = ['now','next','future'];
+
+let todos      = [];
+let movies     = [];
+let concerts   = [];
+let artists    = [];
+let shows      = [];
+let newsTopics = [];
+let newsItems  = [];
+let lifeData   = {places:[],school:[],things:[],work:[]};
+let saveTimer  = null;
+let dataLoaded = false;
+let activeDrag = null;
+
+// Date
+document.getElementById('dateLine').textContent =
+  new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+
+// Main tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Sub-tabs (scoped to parent panel)
+document.querySelectorAll('.sub-tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const parent = btn.closest('.panel');
+    parent.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+    parent.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('subtab-'+btn.dataset.subtab).classList.add('active');
+  });
+});
+
+// Collapsible headers (todos + movies)
+[...SECTIONS.map(s=>'hd-'+s),'wantHd','seenHd'].forEach(id => {
+  const el = document.getElementById(id); if (!el) return;
+  el.addEventListener('click', () => {
+    const bodyId = id.startsWith('hd-') ? 'list-'+id.slice(3) : id.replace('Hd','List');
+    el.classList.toggle('collapsed');
+    const body = document.getElementById(bodyId);
+    if (body) body.classList.toggle('collapsed');
+  });
+});
+
+function setStatus(state, msg) {
+  document.getElementById('statusDot').className = 'status-dot '+state;
+  document.getElementById('statusText').textContent = msg;
+}
+function uid()  { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtDate(iso) { if(!iso) return ''; return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+function parseDateStr(s) {
+  if (!s) return null;
+  const p=s.split('-');
+  if (p.length===3&&p[2].length===4) return new Date(+p[2],+p[1]-1,+p[0]);
+  return new Date(s);
+}
+function fmtSetlistDate(s) {
+  const d=parseDateStr(s); if(!d||isNaN(d)) return s||'';
+  return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+}
+
+// Sheets I/O
+async function loadFromSheets() {
+  setStatus('syncing','Loading from Sheets...');
+  try {
+    const res  = await fetch(SHEET_URL);
+    const data = await res.json();
+    if (data.todos)      todos      = data.todos;
+    if (data.movies)     movies     = data.movies;
+    if (data.concerts)   concerts   = data.concerts;
+    if (data.artists)    artists    = data.artists;
+    if (data.newsTopics) newsTopics = data.newsTopics;
+    if (data.lifeData)   lifeData   = Object.assign({places:[],school:[],things:[],work:[]}, data.lifeData);
+    dataLoaded = true;
+    setStatus('synced','Synced - '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
+  } catch(e) {
+    dataLoaded = true;
+    setStatus('error','Offline - working locally');
+  }
+  renderAll();
+}
+
+async function saveAll() {
+  if (!dataLoaded) return;
+  setStatus('syncing','Saving...');
+  try {
+    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({todos,movies,concerts,artists,newsTopics,lifeData})});
+    setStatus('synced','Saved - '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
+  } catch(e) { setStatus('error','Save failed'); }
+}
+
+function hasData() {
+  return todos.length||movies.length||concerts.length||artists.length||newsTopics.length||
+    lifeData.places.length||lifeData.school.length||lifeData.things.length||lifeData.work.length;
+}
+function scheduleSave() { clearTimeout(saveTimer); if(hasData()) saveTimer=setTimeout(saveAll,1200); }
+async function syncNow() { clearTimeout(saveTimer); if(hasData()) await saveAll(); await loadFromSheets(); }
+
+// Pointer drag
+function initDragHandle(handle, todo, sec) {
+  handle.addEventListener('pointerdown', e => {
+    if (todo.done) return;
+    e.preventDefault(); handle.setPointerCapture(e.pointerId);
+    const li=handle.closest('.todo-item'); const rect=li.getBoundingClientRect();
+    const ghost=li.cloneNode(true); ghost.className='drag-ghost';
+    ghost.style.width=rect.width+'px'; ghost.style.height=rect.height+'px';
+    ghost.style.left=rect.left+'px'; ghost.style.top=rect.top+'px';
+    document.body.appendChild(ghost); li.classList.add('is-dragging');
+    activeDrag={todo,sec,li,ghost,offsetX:e.clientX-rect.left,offsetY:e.clientY-rect.top};
+  });
+  handle.addEventListener('pointermove', e => {
+    if (!activeDrag||activeDrag.todo!==todo) return; e.preventDefault();
+    activeDrag.ghost.style.left=(e.clientX-activeDrag.offsetX)+'px';
+    activeDrag.ghost.style.top=(e.clientY-activeDrag.offsetY)+'px';
+    SECTIONS.forEach(s=>{const el=document.getElementById('list-'+s);if(!el)return;const r=el.getBoundingClientRect();el.classList.toggle('drag-over-section',e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom);});
+  });
+  handle.addEventListener('pointerup', e => {
+    if (!activeDrag||activeDrag.todo!==todo) return; e.preventDefault();
+    const {todo:dt,li,ghost}=activeDrag;
+    ghost.remove(); li.classList.remove('is-dragging');
+    SECTIONS.forEach(s=>{const el=document.getElementById('list-'+s);if(el)el.classList.remove('drag-over-section');});
+    let targetSection=null,insertBeforeTodo=null;
+    for (const s of SECTIONS) {
+      const c=document.getElementById('list-'+s); if(!c) continue;
+      const cr=c.getBoundingClientRect();
+      if (e.clientX>=cr.left&&e.clientX<=cr.right&&e.clientY>=cr.top&&e.clientY<=cr.bottom) {
+        targetSection=s;
+        for (const itemEl of Array.from(c.querySelectorAll('.todo-item:not(.is-dragging)'))) {
+          const ir=itemEl.getBoundingClientRect();
+          if (e.clientY<ir.top+ir.height/2){insertBeforeTodo=todos.find(t=>t.id===itemEl.dataset.todoId);break;}
+        }
+        break;
+      }
+    }
+    if (targetSection) {
+      dt.section=targetSection;
+      const si=todos.filter(t=>!t.done&&(t.section||'now')===targetSection&&t!==dt).sort((a,b)=>(a.order??0)-(b.order??0));
+      if (insertBeforeTodo&&insertBeforeTodo!==dt){const ii=si.indexOf(insertBeforeTodo);si.splice(ii>=0?ii:si.length,0,dt);}else si.push(dt);
+      si.forEach((t,i)=>t.order=i); scheduleSave(); renderTodos();
+    }
+    activeDrag=null;
+  });
+  handle.addEventListener('pointercancel',()=>{
+    if(!activeDrag||activeDrag.todo!==todo)return;
+    activeDrag.ghost.remove();activeDrag.li.classList.remove('is-dragging');
+    SECTIONS.forEach(s=>{const el=document.getElementById('list-'+s);if(el)el.classList.remove('drag-over-section');});
+    activeDrag=null;
+  });
+}
+
+// TODOS
+function renderAll() {
+  renderTodos(); renderMovies(); renderArtists(); renderUpcoming(); renderMyConcerts(); renderTopics();
+  try{renderPlaces();}catch(e){console.error('renderPlaces',e);}
+  try{renderSchool();}catch(e){console.error('renderSchool',e);}
+  try{renderThings();}catch(e){console.error('renderThings',e);}
+  try{renderWork();}catch(e){console.error('renderWork',e);}
+}
+
+function renderTodos() {
+  const completed=todos.filter(t=>t.done).sort((a,b)=>new Date(b.completedAt||0)-new Date(a.completedAt||0));
+  SECTIONS.forEach(sec=>{
+    document.getElementById('count-'+sec).textContent=todos.filter(t=>!t.done&&(t.section||'now')===sec).length;
+    const items=todos.filter(t=>(t.section||'now')===sec).sort((a,b)=>{if(!!a.done!==!!b.done)return a.done?1:-1;return(a.order??0)-(b.order??0);});
+    const container=document.getElementById('list-'+sec); container.innerHTML='';
+    if(!items.length){container.innerHTML='<div class="empty-state"><div class="empty-icon">.</div><p>Nothing here</p></div>';return;}
+    items.forEach(todo=>container.appendChild(makeTodoItem(todo,sec)));
+  });
+  const container=document.getElementById('completedList'); container.innerHTML='';
+  if(!completed.length){container.innerHTML='<div class="empty-state"><div class="empty-icon">&#10003;</div><p>Nothing completed yet</p></div>';return;}
+  completed.forEach(todo=>{
+    const div=document.createElement('div'); div.className='completed-item';
+    div.innerHTML='<div class="completed-check"><div class="completed-check-box">&#10003;</div></div><span class="completed-text">'+esc(todo.text)+'</span><span class="completed-meta">'+fmtDate(todo.completedAt)+'</span><button class="btn-uncomplete">&#8617;</button>';
+    div.querySelector('.btn-uncomplete').addEventListener('click',()=>{todo.done=false;todo.completedAt=null;todo.section=todo.section||'now';scheduleSave();renderTodos();});
+    container.appendChild(div);
+  });
+}
+
+function makeTodoItem(todo,sec) {
+  const li=document.createElement('li'); li.className='todo-item'+(todo.done?' done':''); li.dataset.todoId=todo.id;
+  li.innerHTML='<div class="drag-handle" style="'+(todo.done?'opacity:0.2;cursor:default;':'')+'">&#8285;</div><label class="todo-check"><input type="checkbox" '+(todo.done?'checked':'')+'><div class="check-box"><span class="check-tick">&#10003;</span></div></label><span class="todo-text" style="'+(todo.done?'text-decoration:line-through;color:var(--hb-fog);':'')+'">'+esc(todo.text)+'</span><button class="btn-delete">&#10005;</button>';
+  if(todo.done){const cb=li.querySelector('.check-box');cb.style.background='var(--hb-greenflash)';cb.style.borderColor='var(--hb-greenflash)';li.querySelector('.check-tick').style.display='block';}
+  li.querySelector('input[type=checkbox]').addEventListener('change',e=>{todo.done=e.target.checked;todo.completedAt=e.target.checked?new Date().toISOString():null;scheduleSave();renderTodos();});
+  li.querySelector('.btn-delete').addEventListener('click',()=>{todos.splice(todos.indexOf(todo),1);scheduleSave();renderTodos();});
+  if(!todo.done)initDragHandle(li.querySelector('.drag-handle'),todo,sec);
+  return li;
+}
+
+function addTodo() {
+  const input=document.getElementById('newTodoInput');const section=document.getElementById('newTodoSection').value;const text=input.value.trim();if(!text)return;
+  const max=todos.filter(t=>!t.done&&(t.section||'now')===section).reduce((m,t)=>Math.max(m,t.order??0),-1);
+  todos.push({id:uid(),text,done:false,section,order:max+1,createdAt:new Date().toISOString()});
+  input.value='';document.getElementById('hd-'+section).classList.remove('collapsed');document.getElementById('list-'+section).classList.remove('collapsed');
+  scheduleSave();renderTodos();
+}
+document.getElementById('addTodoBtn').addEventListener('click',addTodo);
+document.getElementById('newTodoInput').addEventListener('keydown',e=>{if(e.key==='Enter')addTodo();});
+document.getElementById('syncBtn').addEventListener('click',syncNow);
+document.getElementById('syncBtn2').addEventListener('click',syncNow);
+
+// MOVIES
+function renderMovies() {
+  const unseen=movies.filter(m=>!m.seen);const seen=movies.filter(m=>m.seen);
+  document.getElementById('wantCount').textContent=unseen.length;
+  document.getElementById('seenCount').textContent=seen.length;
+  renderMovieList('wantList',unseen,false);renderMovieList('seenList',seen,true);
+}
+function renderMovieList(cId,list,isSeen) {
+  const c=document.getElementById(cId);c.innerHTML='';
+  if(!list.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">'+(isSeen?'&#127916;':'&#127871;')+'</div><p>'+(isSeen?'No films rated yet':'Nothing queued up')+'</p></div>';return;}
+  list.forEach(movie=>{
+    const card=document.createElement('div');card.className='movie-card';
+    const main=document.createElement('div');main.className='movie-main';
+    const tw=document.createElement('div');tw.className='movie-title-wrap';
+    tw.innerHTML='<div class="movie-title">'+esc(movie.title)+'</div>';
+    if(isSeen){
+      const sr=document.createElement('div');sr.className='star-row';
+      for(let i=1;i<=5;i++){const s=document.createElement('span');s.className='star'+(i<=(movie.rating||0)?' filled':'');s.textContent='&#9733;';s.addEventListener('click',()=>{movie.rating=(movie.rating===i)?0:i;scheduleSave();renderMovies();});sr.appendChild(s);}
+      tw.appendChild(sr);
+    } else {
+      const rr=document.createElement('div');rr.className='rec-row';rr.innerHTML='<span class="rec-label">Rec\'d by</span>';
+      const ri=document.createElement('input');ri.className='rec-input';ri.type='text';ri.placeholder='someone...';ri.value=movie.recommendedBy||'';
+      ri.addEventListener('change',()=>{movie.recommendedBy=ri.value.trim();scheduleSave();});ri.addEventListener('keydown',e=>{if(e.key==='Enter')ri.blur();});rr.appendChild(ri);tw.appendChild(rr);
+    }
+    main.appendChild(tw);
+    const acts=document.createElement('div');acts.className='movie-actions';
+    if(!isSeen){const mb=document.createElement('button');mb.className='movie-action-btn mark-seen';mb.textContent='Seen';mb.addEventListener('click',()=>{movie.seen=true;movie.rating=movie.rating||0;scheduleSave();renderMovies();});acts.appendChild(mb);}
+    const db=document.createElement('button');db.className='movie-action-btn del-movie';db.textContent='&#10005;';db.addEventListener('click',()=>{movies.splice(movies.indexOf(movie),1);scheduleSave();renderMovies();});acts.appendChild(db);
+    main.appendChild(acts);card.appendChild(main);c.appendChild(card);
+  });
+}
+function addMovie(){const input=document.getElementById('newMovieInput');const title=input.value.trim();if(!title)return;movies.push({id:uid(),title,seen:false,rating:0,recommendedBy:'',addedAt:new Date().toISOString()});input.value='';document.getElementById('wantHd').classList.remove('collapsed');document.getElementById('wantList').classList.remove('collapsed');scheduleSave();renderMovies();}
+document.getElementById('addMovieBtn').addEventListener('click',addMovie);
+document.getElementById('newMovieInput').addEventListener('keydown',e=>{if(e.key==='Enter')addMovie();});
+document.getElementById('movieSyncBtn').addEventListener('click',syncNow);
+
+// CONCERTS - ARTISTS
+let searchTimeout=null;
+document.getElementById('artistSearchInput').addEventListener('input',e=>{clearTimeout(searchTimeout);const q=e.target.value.trim();if(q.length<2){document.getElementById('artistResults').style.display='none';return;}searchTimeout=setTimeout(()=>searchArtists(q),400);});
+document.getElementById('artistSearchBtn').addEventListener('click',()=>{const q=document.getElementById('artistSearchInput').value.trim();if(q.length>=2)searchArtists(q);});
+document.addEventListener('click',e=>{if(!e.target.closest('.artist-search-wrap'))document.getElementById('artistResults').style.display='none';});
+
+async function searchArtists(name) {
+  const resultsEl=document.getElementById('artistResults');resultsEl.style.display='block';
+  resultsEl.innerHTML='<div style="padding:12px 14px;font-size:0.8rem;color:var(--hb-fog)">Searching...</div>';
+  try {
+    const res=await fetch(SHEET_URL+'?action=searchArtist&name='+encodeURIComponent(name));
+    const data=await res.json();const hits=data.artist||[];
+    if(!hits.length){resultsEl.innerHTML='<div style="padding:12px 14px;font-size:0.8rem;color:var(--hb-fog)">No artists found</div>';return;}
+    resultsEl.innerHTML='';
+    hits.slice(0,8).forEach(a=>{
+      const div=document.createElement('div');div.className='artist-result-item';
+      div.innerHTML='<div class="artist-result-name">'+esc(a.name)+'</div><div class="artist-result-meta">'+esc(a.disambiguation||'')+(a.sortName&&a.sortName!==a.name?' - '+esc(a.sortName):'')+'</div>';
+      div.addEventListener('click',()=>{addArtist(a.name,a.mbid);document.getElementById('artistSearchInput').value='';resultsEl.style.display='none';});
+      resultsEl.appendChild(div);
+    });
+  } catch(e){resultsEl.innerHTML='<div style="padding:12px 14px;font-size:0.8rem;color:var(--hb-fog)">Search failed</div>';}
+}
+
+function addArtist(name,mbid){if(artists.find(a=>a.mbid===mbid))return;artists.push({id:uid(),name,mbid,addedAt:new Date().toISOString()});scheduleSave();renderArtists();}
+function renderArtists(){
+  const c=document.getElementById('artistList');c.innerHTML='';
+  if(!artists.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#127925;</div><p>No artists tracked yet</p></div>';return;}
+  artists.forEach(artist=>{const div=document.createElement('div');div.className='artist-item';div.innerHTML='<span class="artist-name">'+esc(artist.name)+'</span><button class="btn-remove-artist">&#10005;</button>';div.querySelector('.btn-remove-artist').addEventListener('click',()=>{artists.splice(artists.indexOf(artist),1);scheduleSave();renderArtists();});c.appendChild(div);});
+}
+
+// CONCERTS - UPCOMING
+document.getElementById('refreshShowsBtn').addEventListener('click',fetchUpcomingShows);
+async function fetchUpcomingShows(){
+  if(!artists.length){alert('Add some artists first!');return;}
+  const btn=document.getElementById('refreshShowsBtn');btn.disabled=true;btn.textContent='Fetching...';
+  shows=[];const today=new Date();today.setHours(0,0,0,0);
+  for(const artist of artists){
+    if(!artist.mbid)continue;
+    try{
+      const res=await fetch(SHEET_URL+'?action=getShows&mbid='+encodeURIComponent(artist.mbid));
+      const data=await res.json();
+      (data.setlist||[]).forEach(s=>{const d=parseDateStr(s.eventDate);if(!d||isNaN(d)||d<today)return;shows.push({id:s.id||uid(),artistName:artist.name,artistMbid:artist.mbid,venue:s.venue?.name||'',city:[s.venue?.city?.name,s.venue?.city?.country?.name].filter(Boolean).join(', '),date:s.eventDate,url:s.url||'',status:'none'});});
+    }catch(e){}
+  }
+  shows.forEach(sh=>{const saved=concerts.find(c=>c.id===sh.id);if(saved)sh.status=saved.status||'none';});
+  btn.disabled=false;btn.textContent='Refresh Upcoming Shows';
+  renderUpcoming();
+  const cp=document.getElementById('tab-concerts');cp.querySelectorAll('.sub-tab-btn').forEach(b=>b.classList.remove('active'));cp.querySelectorAll('.sub-panel').forEach(p=>p.classList.remove('active'));cp.querySelector('[data-subtab="c-upcoming"]').classList.add('active');document.getElementById('subtab-c-upcoming').classList.add('active');
+}
+
+function renderUpcoming(){
+  const c=document.getElementById('upcomingList');c.innerHTML='';
+  const visible=shows.filter(s=>s.status!=='ignored').sort((a,b)=>{if((a.status==='want')!==(b.status==='want'))return a.status==='want'?-1:1;return(parseDateStr(a.date)||0)-(parseDateStr(b.date)||0);});
+  if(!visible.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#127928;</div><p>'+(shows.length?'No upcoming shows':'Refresh to load shows')+'</p></div>';return;}
+  visible.forEach(show=>{
+    const card=document.createElement('div');card.className='show-card'+(show.status==='want'?' want-to-go':'');
+    card.innerHTML='<div class="show-main"><div class="show-artist">'+esc(show.artistName)+'</div><div class="show-venue">'+esc(show.venue)+'</div><div class="show-city">'+esc(show.city)+'</div><div class="show-date">'+fmtSetlistDate(show.date)+'</div>'+(show.status==='want'?'<span class="want-badge">Want to Go</span>':'')+'</div><div class="show-actions"><button class="show-action-btn want '+(show.status==='want'?'active-state':'')+'">'+( show.status==='want'?'Want to Go':'Want to Go')+'</button><button class="show-action-btn ignore">Ignore</button></div>';
+    card.querySelector('.show-action-btn.want').addEventListener('click',()=>{show.status=show.status==='want'?'none':'want';syncShowStatus(show);renderUpcoming();});
+    card.querySelector('.show-action-btn.ignore').addEventListener('click',()=>{show.status='ignored';syncShowStatus(show);renderUpcoming();});
+    c.appendChild(card);
+  });
+}
+
+function syncShowStatus(show){
+  const existing=concerts.find(c=>c.id===show.id);
+  if(show.status==='none'){if(existing)concerts.splice(concerts.indexOf(existing),1);}
+  else{if(existing)existing.status=show.status;else concerts.push({id:show.id,artistName:show.artistName,venue:show.venue,city:show.city,date:show.date,status:show.status,rating:0,notes:'',setlistUrl:show.url,addedAt:new Date().toISOString()});}
+  scheduleSave();
+}
+
+// CONCERTS - MY CONCERTS
+document.getElementById('toggleAddConcert').addEventListener('click',()=>{const f=document.getElementById('addConcertForm');f.classList.toggle('open');document.getElementById('toggleAddConcert').style.display=f.classList.contains('open')?'none':'flex';});
+document.getElementById('cancelConcert').addEventListener('click',()=>{document.getElementById('addConcertForm').classList.remove('open');document.getElementById('toggleAddConcert').style.display='flex';});
+document.getElementById('submitConcert').addEventListener('click',()=>{
+  const artist=document.getElementById('cf-artist').value.trim();const venue=document.getElementById('cf-venue').value.trim();
+  if(!artist||!venue){alert('Artist and venue are required.');return;}
+  concerts.push({id:uid(),artistName:artist,venue,city:document.getElementById('cf-city').value.trim(),date:document.getElementById('cf-date').value,status:'attended',rating:0,notes:document.getElementById('cf-notes').value.trim(),setlistUrl:document.getElementById('cf-url').value.trim(),addedAt:new Date().toISOString()});
+  ['cf-artist','cf-venue','cf-city','cf-notes','cf-url'].forEach(id=>document.getElementById(id).value='');document.getElementById('cf-date').value='';
+  document.getElementById('addConcertForm').classList.remove('open');document.getElementById('toggleAddConcert').style.display='flex';
+  scheduleSave();renderMyConcerts();
+});
+
+function renderMyConcerts(){
+  const c=document.getElementById('myConcertsList');c.innerHTML='';
+  const attended=concerts.filter(c=>c.status==='attended').sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+  if(!attended.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#127903;</div><p>No concerts logged yet</p></div>';return;}
+  attended.forEach(con=>{
+    const card=document.createElement('div');card.className='concert-card';
+    let starHtml='';for(let i=1;i<=5;i++)starHtml+='<span class="concert-star'+(i<=(con.rating||0)?' filled':'')+'">&#9733;</span>';
+    card.innerHTML='<div class="concert-main"><div class="concert-artist">'+esc(con.artistName)+'</div><div class="concert-venue">'+esc(con.venue)+'</div><div class="concert-city">'+esc(con.city)+'</div><div class="concert-date">'+(con.date?new Date(con.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'}):'' )+'</div><div class="concert-star-row">'+starHtml+'</div><div class="concert-notes-row"><input class="concert-notes-input" type="text" placeholder="Notes..." value="'+esc(con.notes||'')+'"></div><div class="concert-link-row"><span class="concert-link-label">Setlist</span><input class="concert-link-input" type="url" placeholder="https://setlist.fm/..." value="'+esc(con.setlistUrl||'')+'"></div></div><div class="concert-footer"><button class="concert-footer-btn open-link">Open Setlist</button><button class="concert-footer-btn del-concert">Remove</button></div>';
+    card.querySelectorAll('.concert-star').forEach((star,i)=>{star.addEventListener('click',()=>{con.rating=(con.rating===i+1)?0:i+1;scheduleSave();renderMyConcerts();});});
+    card.querySelector('.concert-notes-input').addEventListener('change',e=>{con.notes=e.target.value.trim();scheduleSave();});
+    card.querySelector('.concert-link-input').addEventListener('change',e=>{con.setlistUrl=e.target.value.trim();scheduleSave();});
+    card.querySelector('.open-link').addEventListener('click',()=>{if(con.setlistUrl)window.open(con.setlistUrl,'_blank');});
+    card.querySelector('.del-concert').addEventListener('click',()=>{concerts.splice(concerts.indexOf(con),1);scheduleSave();renderMyConcerts();});
+    c.appendChild(card);
+  });
+}
+document.getElementById('concertSyncBtn').addEventListener('click',syncNow);
+
+// NEWS
+const DEFAULT_TOPICS=['Huckberry','Music concerts','Outdoor gear','Fly fishing'];
+const RSS2JSON='https://api.rss2json.com/v1/api.json?rss_url=';
+function googleNewsUrl(topic){return 'https://news.google.com/rss/search?q='+encodeURIComponent(topic)+'&hl=en-US&gl=US&ceid=US:en';}
+
+function renderTopics(){
+  const c=document.getElementById('topicList');c.innerHTML='';
+  if(newsTopics.length===0){DEFAULT_TOPICS.forEach(t=>newsTopics.push({id:uid(),name:t}));scheduleSave();}
+  newsTopics.forEach(topic=>{const div=document.createElement('div');div.className='topic-item';div.innerHTML='<span class="topic-name">'+esc(topic.name)+'</span><button class="btn-remove-topic">&#10005;</button>';div.querySelector('.btn-remove-topic').addEventListener('click',()=>{newsTopics.splice(newsTopics.indexOf(topic),1);scheduleSave();renderTopics();});c.appendChild(div);});
+}
+function addTopic(){const input=document.getElementById('newTopicInput');const name=input.value.trim();if(!name)return;newsTopics.push({id:uid(),name});input.value='';scheduleSave();renderTopics();}
+document.getElementById('addTopicBtn').addEventListener('click',addTopic);
+document.getElementById('newTopicInput').addEventListener('keydown',e=>{if(e.key==='Enter')addTopic();});
+document.getElementById('newsSyncBtn').addEventListener('click',syncNow);
+document.getElementById('refreshNewsBtn').addEventListener('click',fetchNews);
+
+async function fetchNews(){
+  if(!newsTopics.length){document.getElementById('newsFeed').innerHTML='<div class="empty-state"><div class="empty-icon">&#128240;</div><p>Add topics first</p></div>';return;}
+  const btn=document.getElementById('refreshNewsBtn');btn.disabled=true;btn.textContent='Fetching...';
+  newsItems=[];
+  await Promise.all(newsTopics.map(async topic=>{
+    try{
+      const res=await fetch(RSS2JSON+encodeURIComponent(googleNewsUrl(topic.name))+'&count=10');
+      const data=await res.json();
+      if(data.status==='ok'&&Array.isArray(data.items)){data.items.forEach(item=>{newsItems.push({id:item.guid||item.link,topic:topic.name,title:item.title.replace(/\s*-\s*[\w\s]+$/,'').trim(),source:item.author||extractSource(item.title),date:item.pubDate,url:item.link});});}
+    }catch(e){}
+  }));
+  const seen=new Set();
+  newsItems=newsItems.filter(i=>{if(seen.has(i.url))return false;seen.add(i.url);return true;}).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  btn.disabled=false;btn.textContent='Refresh Feed';
+  renderFeed();
+  const np=document.getElementById('tab-news');np.querySelectorAll('.sub-tab-btn').forEach(b=>b.classList.remove('active'));np.querySelectorAll('.sub-panel').forEach(p=>p.classList.remove('active'));np.querySelector('[data-subtab="n-feed"]').classList.add('active');document.getElementById('subtab-n-feed').classList.add('active');
+}
+function extractSource(title){const m=title.match(/- ([^-]+)$/);return m?m[1].trim():'';}
+function fmtNewsDate(d){if(!d)return '';const dt=new Date(d);const diff=Date.now()-dt;const m=Math.floor(diff/60000);if(m<60)return m+'m ago';const h=Math.floor(m/60);if(h<24)return h+'h ago';const dy=Math.floor(h/24);if(dy<7)return dy+'d ago';return dt.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+function renderFeed(){
+  const c=document.getElementById('newsFeed');c.innerHTML='';
+  if(!newsItems.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#128240;</div><p>No articles found</p></div>';return;}
+  newsItems.forEach(item=>{const a=document.createElement('a');a.className='news-item';a.href=item.url;a.target='_blank';a.rel='noopener noreferrer';a.innerHTML='<div class="news-topic-tag">'+esc(item.topic)+'</div><div class="news-headline">'+esc(item.title)+'</div><div class="news-meta"><span class="news-source">'+esc(item.source)+'</span><span>-</span><span class="news-date">'+fmtNewsDate(item.date)+'</span></div>';c.appendChild(a);});
+}
+
+// LIFE RESUME
+function setupToggleForm(toggleId,formId,cancelId){
+  const tb=document.getElementById(toggleId),fm=document.getElementById(formId),cb=document.getElementById(cancelId);
+  if(!tb||!fm||!cb)return;
+  tb.addEventListener('click',()=>{fm.classList.toggle('open');tb.style.display=fm.classList.contains('open')?'none':'flex';});
+  cb.addEventListener('click',()=>{fm.classList.remove('open');tb.style.display='flex';});
+}
+setupToggleForm('togglePlaceForm','placeForm','cancelPlace');
+setupToggleForm('toggleSchoolForm','schoolForm','cancelSchool');
+setupToggleForm('toggleThingForm','thingForm','cancelThing');
+setupToggleForm('toggleWorkForm','workForm','cancelWork');
+
+function closeForm(fId,tId){const f=document.getElementById(fId),b=document.getElementById(tId);if(f)f.classList.remove('open');if(b)b.style.display='flex';}
+function clearFields(ids){ids.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});}
+
+// Collapsible headers for Life tab
+['hd-lr-homes','hd-lr-stays'].forEach(id=>{
+  const el=document.getElementById(id);if(!el)return;
+  el.addEventListener('click',()=>{el.classList.toggle('collapsed');const b=document.getElementById(id.replace('hd-lr-','list-lr-'));if(b)b.classList.toggle('collapsed');});
+});
+
+function makeLRCard({title,subtitle,meta,tag,tagClass,notes,item,collection,onDelete}){
+  const card=document.createElement('div');card.className='lr-card';
+  const tagHtml=tag?'<span class="lr-tag '+(tagClass||'')+'">'+esc(tag)+'</span>':'';
+  card.innerHTML='<div class="lr-body">'+tagHtml+'<div class="lr-title">'+esc(title)+'</div>'+(subtitle?'<div class="lr-subtitle">'+esc(subtitle)+'</div>':'')+(meta?'<div class="lr-meta">'+esc(meta)+'</div>':'')+'<input class="lr-notes-input" type="text" placeholder="Notes..." value="'+esc(notes||'')+'"></div><div class="lr-footer"><button class="lr-footer-btn del">Remove</button></div>';
+  card.querySelector('.lr-notes-input').addEventListener('change',e=>{item.notes=e.target.value.trim();scheduleSave();});
+  card.querySelector('.del').addEventListener('click',()=>{collection.splice(collection.indexOf(item),1);scheduleSave();onDelete();});
+  return card;
+}
+
+document.getElementById('submitPlace').addEventListener('click',()=>{
+  const name=document.getElementById('pf-name').value.trim();if(!name){alert('Location name is required.');return;}
+  lifeData.places.push({id:uid(),name,address:document.getElementById('pf-address').value.trim(),from:document.getElementById('pf-from').value.trim(),to:document.getElementById('pf-to').value.trim(),type:document.getElementById('pf-type').value,notes:document.getElementById('pf-notes').value.trim(),addedAt:new Date().toISOString()});
+  clearFields(['pf-name','pf-address','pf-from','pf-to','pf-notes']);closeForm('placeForm','togglePlaceForm');scheduleSave();renderPlaces();
+});
+document.getElementById('submitSchool').addEventListener('click',()=>{
+  const name=document.getElementById('sf-name').value.trim();if(!name){alert('School name is required.');return;}
+  lifeData.school.push({id:uid(),level:document.getElementById('sf-level').value,name,location:document.getElementById('sf-location').value.trim(),from:document.getElementById('sf-from').value.trim(),to:document.getElementById('sf-to').value.trim(),notes:document.getElementById('sf-notes').value.trim(),addedAt:new Date().toISOString()});
+  clearFields(['sf-name','sf-location','sf-from','sf-to','sf-notes']);closeForm('schoolForm','toggleSchoolForm');scheduleSave();renderSchool();
+});
+document.getElementById('submitThing').addEventListener('click',()=>{
+  const desc=document.getElementById('tf-desc').value.trim();if(!desc){alert('Description is required.');return;}
+  lifeData.things.push({id:uid(),type:document.getElementById('tf-type').value,description:desc,year:document.getElementById('tf-year').value.trim(),notes:'',addedAt:new Date().toISOString()});
+  clearFields(['tf-desc','tf-year']);closeForm('thingForm','toggleThingForm');scheduleSave();renderThings();
+});
+document.getElementById('submitWork').addEventListener('click',()=>{
+  const employer=document.getElementById('wf-employer').value.trim();if(!employer){alert('Employer is required.');return;}
+  lifeData.work.push({id:uid(),employer,description:document.getElementById('wf-desc').value.trim(),from:document.getElementById('wf-from').value.trim(),to:document.getElementById('wf-to').value.trim(),notes:document.getElementById('wf-notes').value.trim(),addedAt:new Date().toISOString()});
+  clearFields(['wf-employer','wf-desc','wf-from','wf-to','wf-notes']);closeForm('workForm','toggleWorkForm');scheduleSave();renderWork();
+});
+document.getElementById('lifeSyncBtn').addEventListener('click',syncNow);
+
+function renderPlaces(){
+  const homes=lifeData.places.filter(p=>p.type==='home');
+  const stays=lifeData.places.filter(p=>p.type==='stay');
+  const hc=document.getElementById('count-lr-homes');if(hc)hc.textContent=homes.length;
+  const sc=document.getElementById('count-lr-stays');if(sc)sc.textContent=stays.length;
+  renderPlaceList('list-lr-homes',homes);renderPlaceList('list-lr-stays',stays);
+}
+function renderPlaceList(cId,list){
+  const c=document.getElementById(cId);if(!c)return;c.innerHTML='';
+  if(!list.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#128205;</div><p>None added yet</p></div>';return;}
+  list.forEach(p=>{const dates=[p.from,p.to].filter(Boolean).join(' - ');c.appendChild(makeLRCard({title:p.name,subtitle:p.address||'',meta:dates,notes:p.notes,item:p,collection:lifeData.places,onDelete:renderPlaces}));});
+}
+function renderSchool(){
+  const c=document.getElementById('schoolList');if(!c)return;c.innerHTML='';
+  const sorted=[...lifeData.school].sort((a,b)=>(b.from||'')>(a.from||'')?1:-1);
+  if(!sorted.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#127891;</div><p>No education added yet</p></div>';return;}
+  sorted.forEach(s=>{const dates=[s.from,s.to].filter(Boolean).join(' - ');c.appendChild(makeLRCard({title:s.name,subtitle:s.location||'',meta:[s.level,dates].filter(Boolean).join(' / '),notes:s.notes,item:s,collection:lifeData.school,onDelete:renderSchool}));});
+}
+function renderThings(){
+  const c=document.getElementById('thingsList');if(!c)return;c.innerHTML='';
+  const sorted=[...lifeData.things].sort((a,b)=>(b.year||'')>(a.year||'')?1:-1);
+  if(!sorted.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#11088;</div><p>No entries yet</p></div>';return;}
+  const typeLabels={event:'Event',accomplishment:'Accomplishment',cool:'Cool Moment'};
+  sorted.forEach(t=>{c.appendChild(makeLRCard({title:t.description,meta:t.year||'',tag:typeLabels[t.type]||t.type,tagClass:t.type,notes:t.notes,item:t,collection:lifeData.things,onDelete:renderThings}));});
+}
+function renderWork(){
+  const c=document.getElementById('workList');if(!c)return;c.innerHTML='';
+  const sorted=[...lifeData.work].sort((a,b)=>(b.from||'')>(a.from||'')?1:-1);
+  if(!sorted.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#128188;</div><p>No work history added yet</p></div>';return;}
+  sorted.forEach(w=>{const dates=[w.from,w.to].filter(Boolean).join(' - ');c.appendChild(makeLRCard({title:w.employer,subtitle:w.description||'',meta:dates,notes:w.notes,item:w,collection:lifeData.work,onDelete:renderWork}));});
+}
+
+// Boot
+loadFromSheets();
+</script>
 </body>
 </html>
