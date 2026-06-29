@@ -27,7 +27,7 @@
   .status-dot.error{background:#e07070;}
 
   .tabs{display:flex;background:var(--hb-white);border-bottom:1px solid var(--hb-shoreline);position:sticky;top:70px;z-index:99;}
-  .tab-btn{flex:1;border:none;background:none;padding:0;height:var(--tap);font-family:'Montserrat',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--hb-fog);cursor:pointer;border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s;}
+  .tab-btn{flex:1;border:none;background:none;padding:0;height:var(--tap);font-family:'Montserrat',sans-serif;font-size:0.5rem;font-weight:700;letter-spacing:0.03em;text-transform:uppercase;color:var(--hb-fog);cursor:pointer;border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s;}
   .tab-btn.active{color:var(--hb-iron);border-bottom-color:var(--hb-amber);}
 
   .sub-tabs{display:flex;background:var(--hb-seashell);border-bottom:1px solid var(--hb-shoreline);position:sticky;top:118px;z-index:98;}
@@ -190,6 +190,8 @@
   .lr-tag.event{background:var(--hb-amber);}
   .lr-tag.accomplishment{background:var(--hb-greenflash);}
   .lr-tag.cool{background:var(--hb-shoreline);}
+  .lr-tag.priority{background:var(--hb-amber);}
+  .lr-tag.triptype{background:var(--hb-seafoam,#8CAFBE);color:var(--hb-white);}
   .lr-notes-input{width:100%;border:none;border-bottom:1px solid var(--hb-shoreline);background:transparent;font-family:'Montserrat',sans-serif;font-size:0.8rem;color:var(--hb-iron);padding:2px 0 4px;outline:none;}
   .lr-notes-input::placeholder{color:var(--hb-fog);}
   .lr-notes-input:focus{border-bottom-color:var(--hb-iron);}
@@ -215,6 +217,7 @@
   <button class="tab-btn" data-tab="concerts">Concerts</button>
   <button class="tab-btn" data-tab="news">News</button>
   <button class="tab-btn" data-tab="life">Life</button>
+  <button class="tab-btn" data-tab="travel">Travel</button>
 </nav>
 
 <!-- TODOS -->
@@ -354,7 +357,7 @@
 <!-- LIFE RESUME -->
 <section class="panel" id="tab-life">
   <nav class="sub-tabs">
-    <button class="sub-tab-btn active" data-subtab="lr-places">Places</button>
+    <button class="sub-tab-btn active" data-subtab="lr-places">Lived</button>
     <button class="sub-tab-btn" data-subtab="lr-school">School</button>
     <button class="sub-tab-btn" data-subtab="lr-things">Things Done</button>
     <button class="sub-tab-btn" data-subtab="lr-work">Work</button>
@@ -458,6 +461,75 @@
   </div>
 </section>
 
+<!-- TRAVEL -->
+<section class="panel" id="tab-travel">
+  <nav class="sub-tabs">
+    <button class="sub-tab-btn active" data-subtab="tr-been">Places Been</button>
+    <button class="sub-tab-btn" data-subtab="tr-future">Future</button>
+  </nav>
+
+  <!-- Places Been -->
+  <div class="sub-panel active" id="subtab-tr-been">
+    <button class="btn-toggle-form" id="toggleBeenForm">+ Add a Place</button>
+    <div class="lr-form" id="beenForm">
+      <div class="form-field"><label class="form-label">Place</label><input class="form-input" id="bf-name" placeholder="e.g. Lisbon, Portugal" autocomplete="off"></div>
+      <div class="form-row">
+        <div class="form-field"><label class="form-label">From</label><input class="form-input" id="bf-from" placeholder="Year or date" autocomplete="off"></div>
+        <div class="form-field"><label class="form-label">To</label><input class="form-input" id="bf-to" placeholder="Year or date" autocomplete="off"></div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Trip Type</label>
+        <select class="form-input" id="bf-type" style="height:40px;padding:0 12px;">
+          <option value="solo">Solo</option>
+          <option value="family">Family</option>
+          <option value="friends">Friends</option>
+          <option value="work">Work</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-field"><label class="form-label">Notes</label><input class="form-input" id="bf-notes" placeholder="Any notes..." autocomplete="off"></div>
+      <button class="btn-form-submit" id="submitBeen">Add Place</button>
+      <button class="btn-form-cancel" id="cancelBeen">Cancel</button>
+    </div>
+    <div id="beenList" style="display:flex;flex-direction:column;gap:12px;"></div>
+  </div>
+
+  <!-- Future -->
+  <div class="sub-panel" id="subtab-tr-future">
+    <button class="btn-toggle-form" id="toggleFutureForm">+ Add a Destination</button>
+    <div class="lr-form" id="futureForm">
+      <div class="form-field"><label class="form-label">Place</label><input class="form-input" id="ff-name" placeholder="e.g. Patagonia" autocomplete="off"></div>
+      <div class="form-field">
+        <label class="form-label">List</label>
+        <select class="form-input" id="ff-list" style="height:40px;padding:0 12px;">
+          <option value="planned">Planned</option>
+          <option value="wishlist">Wish List</option>
+        </select>
+      </div>
+      <div class="form-field"><label class="form-label">Target Date</label><input class="form-input" id="ff-date" placeholder="e.g. Summer 2027" autocomplete="off"></div>
+      <div class="form-field">
+        <label class="form-label">Priority</label>
+        <select class="form-input" id="ff-priority" style="height:40px;padding:0 12px;">
+          <option value="false">Normal</option>
+          <option value="true">High Priority</option>
+        </select>
+      </div>
+      <div class="form-field"><label class="form-label">Notes</label><input class="form-input" id="ff-notes" placeholder="Any notes..." autocomplete="off"></div>
+      <button class="btn-form-submit" id="submitFuture">Add Destination</button>
+      <button class="btn-form-cancel" id="cancelFuture">Cancel</button>
+    </div>
+    <div class="section-wrap">
+      <div class="section-hd" id="hd-tr-planned"><span class="section-label">Planned</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-tr-planned">0</span><span class="chevron">&#9658;</span></div></div>
+      <div class="section-body" id="list-tr-planned"></div>
+    </div>
+    <div class="section-wrap">
+      <div class="section-hd" id="hd-tr-wishlist"><span class="section-label">Wish List</span><div style="display:flex;align-items:center;gap:6px"><span class="section-count" id="count-tr-wishlist">0</span><span class="chevron">&#9658;</span></div></div>
+      <div class="section-body" id="list-tr-wishlist"></div>
+    </div>
+    <button class="btn-sync" id="travelSyncBtn">Sync with Sheets</button>
+  </div>
+</section>
+
 <script>
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbyjhMsjDWB6YK_6q-jISZJlVta7U6oBGD8GAs5kfDBpq3RF9-PnewbuRYFXix5_n4mluw/exec";
 const SECTIONS  = ['now','next','future'];
@@ -471,6 +543,7 @@ let shows      = [];
 let newsTopics = [];
 let newsItems  = [];
 let lifeData   = {places:[],school:[],things:[],work:[]};
+let travelData = {been:[],future:[]};
 let saveTimer  = null;
 let dataLoaded = false;
 let activeDrag = null;
@@ -553,6 +626,7 @@ async function loadFromSheets() {
     shows      = Array.isArray(data.shows)      ? data.shows      : [];
     newsTopics = Array.isArray(data.newsTopics) ? data.newsTopics : [];
     lifeData   = Object.assign({places:[],school:[],things:[],work:[]}, data.lifeData||{});
+    travelData = Object.assign({been:[],future:[]}, data.travelData||{});
     dataLoaded = true;  // ONLY set true on a verified successful load
     setStatus('synced','Synced - '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
   } catch(e) {
@@ -572,13 +646,13 @@ async function saveAll() {
   setStatus('syncing','Saving...');
   try {
     await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({todos,movies,concerts,artists,locations,shows,newsTopics,lifeData})});
+      body:JSON.stringify({todos,movies,concerts,artists,locations,shows,newsTopics,lifeData,travelData})});
     setStatus('synced','Saved - '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
   } catch(e) { setStatus('error','Save failed'); }
 }
 
 function hasData() {
-  return todos.length||movies.length||concerts.length||artists.length||locations.length||shows.length||newsTopics.length||
+  return todos.length||movies.length||concerts.length||artists.length||locations.length||shows.length||newsTopics.length||travelData.been.length||travelData.future.length||
     lifeData.places.length||lifeData.school.length||lifeData.things.length||lifeData.work.length;
 }
 function scheduleSave() { clearTimeout(saveTimer); if(hasData()) saveTimer=setTimeout(saveAll,1200); }
@@ -643,6 +717,8 @@ function renderAll() {
   try{renderSchool();}catch(e){console.error('renderSchool',e);}
   try{renderThings();}catch(e){console.error('renderThings',e);}
   try{renderWork();}catch(e){console.error('renderWork',e);}
+  try{renderBeen();}catch(e){console.error('renderBeen',e);}
+  try{renderFuture();}catch(e){console.error('renderFuture',e);}
 }
 
 function renderTodos() {
@@ -1037,6 +1113,72 @@ function renderWork(){
   if(!sorted.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#128188;</div><p>No work history added yet</p></div>';return;}
   sorted.forEach(w=>{const dates=[w.from,w.to].filter(Boolean).join(' - ');c.appendChild(makeLRCard({title:w.employer,subtitle:w.description||'',meta:dates,notes:w.notes,item:w,collection:lifeData.work,onDelete:renderWork}));});
 }
+
+// ===== TRAVEL =====
+// Collapsible headers for Future sections
+['hd-tr-planned','hd-tr-wishlist'].forEach(id=>{
+  const el=document.getElementById(id);if(!el)return;
+  el.addEventListener('click',()=>{el.classList.toggle('collapsed');const b=document.getElementById(id.replace('hd-tr-','list-tr-'));if(b)b.classList.toggle('collapsed');});
+});
+
+// Form toggles (reuse the same pattern)
+function setupTravelToggle(toggleId,formId,cancelId){
+  const tb=document.getElementById(toggleId),fm=document.getElementById(formId),cb=document.getElementById(cancelId);
+  if(!tb||!fm||!cb)return;
+  tb.addEventListener('click',()=>{fm.classList.toggle('open');tb.style.display=fm.classList.contains('open')?'none':'flex';});
+  cb.addEventListener('click',()=>{fm.classList.remove('open');tb.style.display='flex';});
+}
+setupTravelToggle('toggleBeenForm','beenForm','cancelBeen');
+setupTravelToggle('toggleFutureForm','futureForm','cancelFuture');
+
+function closeTravelForm(fId,tId){const f=document.getElementById(fId),b=document.getElementById(tId);if(f)f.classList.remove('open');if(b)b.style.display='flex';}
+function clearTravelFields(ids){ids.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});}
+
+const TRIP_TYPE_LABELS={solo:'Solo',family:'Family',friends:'Friends',work:'Work',other:'Other'};
+
+// Places Been
+document.getElementById('submitBeen').addEventListener('click',()=>{
+  const name=document.getElementById('bf-name').value.trim();if(!name){alert('Place is required.');return;}
+  travelData.been.push({id:uid(),name,from:document.getElementById('bf-from').value.trim(),to:document.getElementById('bf-to').value.trim(),tripType:document.getElementById('bf-type').value,notes:document.getElementById('bf-notes').value.trim(),addedAt:new Date().toISOString()});
+  clearTravelFields(['bf-name','bf-from','bf-to','bf-notes']);closeTravelForm('beenForm','toggleBeenForm');scheduleSave();renderBeen();
+});
+
+function renderBeen(){
+  const c=document.getElementById('beenList');if(!c)return;c.innerHTML='';
+  const sorted=[...travelData.been].sort((a,b)=>(b.from||'')>(a.from||'')?1:-1);
+  if(!sorted.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#9992;</div><p>No places logged yet</p></div>';return;}
+  sorted.forEach(p=>{
+    const dates=[p.from,p.to].filter(Boolean).join(' - ');
+    c.appendChild(makeLRCard({title:p.name,meta:dates,tag:TRIP_TYPE_LABELS[p.tripType]||p.tripType,tagClass:'triptype',notes:p.notes,item:p,collection:travelData.been,onDelete:renderBeen}));
+  });
+}
+
+// Future
+document.getElementById('submitFuture').addEventListener('click',()=>{
+  const name=document.getElementById('ff-name').value.trim();if(!name){alert('Place is required.');return;}
+  travelData.future.push({id:uid(),name,list:document.getElementById('ff-list').value,targetDate:document.getElementById('ff-date').value.trim(),priority:document.getElementById('ff-priority').value==='true',notes:document.getElementById('ff-notes').value.trim(),addedAt:new Date().toISOString()});
+  clearTravelFields(['ff-name','ff-date','ff-notes']);closeTravelForm('futureForm','toggleFutureForm');scheduleSave();renderFuture();
+});
+
+function renderFuture(){
+  const planned=travelData.future.filter(f=>f.list==='planned');
+  const wishlist=travelData.future.filter(f=>f.list==='wishlist');
+  const pc=document.getElementById('count-tr-planned');if(pc)pc.textContent=planned.length;
+  const wc=document.getElementById('count-tr-wishlist');if(wc)wc.textContent=wishlist.length;
+  renderFutureList('list-tr-planned',planned);
+  renderFutureList('list-tr-wishlist',wishlist);
+}
+function renderFutureList(cId,list){
+  const c=document.getElementById(cId);if(!c)return;c.innerHTML='';
+  if(!list.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#128205;</div><p>Nothing here yet</p></div>';return;}
+  // High priority first, then by target date text
+  const sorted=[...list].sort((a,b)=>{if(!!a.priority!==!!b.priority)return a.priority?-1:1;return 0;});
+  sorted.forEach(f=>{
+    c.appendChild(makeLRCard({title:f.name,meta:f.targetDate||'',tag:f.priority?'High Priority':null,tagClass:'priority',notes:f.notes,item:f,collection:travelData.future,onDelete:renderFuture}));
+  });
+}
+
+document.getElementById('travelSyncBtn').addEventListener('click',syncNow);
 
 // Boot
 loadFromSheets();
