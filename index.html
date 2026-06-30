@@ -201,17 +201,19 @@
 
   /* Travel: compact Places Been cards */
   .been-card{background:var(--hb-white);border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);overflow:hidden;}
-  .been-row{display:flex;align-items:center;gap:8px;padding:7px 6px 7px 10px;}
+  .been-row{display:flex;align-items:center;gap:8px;padding:7px 6px 7px 10px;cursor:pointer;}
   .been-tdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--hb-shoreline);}
-  .been-main{flex:1;min-width:0;display:flex;flex-direction:column;}
-  .been-name{font-size:0.85rem;font-weight:700;line-height:1.25;color:var(--hb-iron);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .been-dates{font-size:0.62rem;font-weight:600;letter-spacing:0.02em;color:var(--hb-fog);margin-top:1px;}
-  .been-icon-btn{width:28px;height:28px;border:none;background:none;border-radius:4px;color:var(--hb-fog);font-size:0.75rem;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background 0.15s,color 0.15s;}
-  .been-icon-btn:active{background:var(--hb-seashell);color:var(--hb-iron);}
-  .been-del-btn:active{background:var(--hb-shoreline);color:var(--hb-iron);}
-  .been-details-btn .chev{display:inline-block;transition:transform 0.2s;}
-  .been-card.open .been-details-btn .chev{transform:rotate(180deg);}
-  .been-details{display:none;flex-direction:column;gap:8px;padding:0 10px 10px 28px;}
+  .been-name{flex:1;min-width:0;font-size:0.85rem;font-weight:700;line-height:1.25;color:var(--hb-iron);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .been-dates{flex-shrink:0;font-size:0.62rem;font-weight:600;letter-spacing:0.02em;color:var(--hb-fog);white-space:nowrap;}
+  .been-year{display:flex;align-items:center;gap:10px;margin-top:14px;}
+  .been-year:first-child{margin-top:2px;}
+  .been-year-label{font-family:'Lora',Georgia,serif;font-size:1rem;font-weight:500;color:var(--hb-iron);line-height:1;}
+  .been-year-count{font-size:0.6rem;font-weight:700;color:var(--hb-fog);background:var(--hb-shoreline);border-radius:10px;padding:2px 8px;flex-shrink:0;}
+  .been-year-line{flex:1;height:1px;background:var(--hb-shoreline);}
+  .been-icon-btn{width:28px;height:28px;border-radius:4px;color:var(--hb-fog);font-size:0.75rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .been-chev-wrap .chev{display:inline-block;transition:transform 0.2s;}
+  .been-card.open .been-chev-wrap .chev{transform:rotate(180deg);}
+  .been-details{display:none;flex-direction:column;gap:10px;padding:0 10px 10px 28px;}
   .been-card.open .been-details{display:flex;}
   .been-type-row{display:flex;align-items:center;gap:8px;}
   .been-d-label{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--hb-fog);}
@@ -219,6 +221,8 @@
   .been-notes-input{width:100%;border:none;border-bottom:1px solid var(--hb-shoreline);background:transparent;font-family:'Montserrat',sans-serif;font-size:0.75rem;color:var(--hb-iron);padding:2px 0 4px;outline:none;}
   .been-notes-input::placeholder{color:var(--hb-fog);}
   .been-notes-input:focus{border-bottom-color:var(--hb-iron);}
+  .been-remove-btn{align-self:flex-start;height:32px;padding:0 14px;border:1.5px solid var(--hb-shoreline);border-radius:var(--radius);background:none;font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--hb-fog);cursor:pointer;transition:background 0.15s,color 0.15s,border-color 0.15s;}
+  .been-remove-btn:active{background:var(--hb-shoreline);color:var(--hb-iron);border-color:var(--hb-iron);}
 </style>
 </head>
 <body>
@@ -1178,6 +1182,8 @@ function travelDateRange(from,to){
   if(f&&t) return f+' to '+t;
   return f||t||'';
 }
+// Year used for the Places Been dividers (first 4-digit run in the start date)
+function beenYear(from){const m=/\d{4}/.exec(from||'');return m?m[0]:'Undated';}
 
 function makeBeenCard(item){
   const card=document.createElement('div');card.className='been-card';
@@ -1188,20 +1194,20 @@ function makeBeenCard(item){
   card.innerHTML=
     '<div class="been-row">'+
       '<span class="been-tdot" style="background:'+dot+'"></span>'+
-      '<div class="been-main"><span class="been-name">'+esc(item.name)+'</span>'+
-        (dates?'<span class="been-dates">'+esc(dates)+'</span>':'')+'</div>'+
-      '<button class="been-icon-btn been-details-btn" aria-label="Details"><span class="chev">&#9662;</span></button>'+
-      '<button class="been-icon-btn been-del-btn" aria-label="Remove">&#10005;</button>'+
+      '<span class="been-name">'+esc(item.name)+'</span>'+
+      (dates?'<span class="been-dates">'+esc(dates)+'</span>':'')+
+      '<span class="been-icon-btn been-chev-wrap" aria-hidden="true"><span class="chev">&#9662;</span></span>'+
     '</div>'+
     '<div class="been-details">'+
       '<div class="been-type-row"><span class="been-d-label">Trip type</span>'+
         '<select class="been-type-select">'+typeOpts+'</select></div>'+
       '<input class="been-notes-input" type="text" placeholder="Notes..." value="'+esc(item.notes||'')+'">'+
+      '<button class="been-remove-btn">Remove place</button>'+
     '</div>';
-  card.querySelector('.been-details-btn').addEventListener('click',()=>card.classList.toggle('open'));
+  card.querySelector('.been-row').addEventListener('click',()=>card.classList.toggle('open'));
   card.querySelector('.been-type-select').addEventListener('change',e=>{item.tripType=e.target.value;card.querySelector('.been-tdot').style.background=TRIP_DOT[item.tripType]||'var(--hb-shoreline)';scheduleSave();});
   card.querySelector('.been-notes-input').addEventListener('change',e=>{item.notes=e.target.value.trim();scheduleSave();});
-  card.querySelector('.been-del-btn').addEventListener('click',()=>{travelData.been.splice(travelData.been.indexOf(item),1);scheduleSave();renderBeen();});
+  card.querySelector('.been-remove-btn').addEventListener('click',()=>{travelData.been.splice(travelData.been.indexOf(item),1);scheduleSave();renderBeen();});
   return card;
 }
 
@@ -1209,7 +1215,18 @@ function renderBeen(){
   const c=document.getElementById('beenList');if(!c)return;c.innerHTML='';
   const sorted=[...travelData.been].sort((a,b)=>(b.from||'')>(a.from||'')?1:-1);
   if(!sorted.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">&#9992;</div><p>No places logged yet</p></div>';return;}
-  sorted.forEach(p=>c.appendChild(makeBeenCard(p)));
+  const counts={};sorted.forEach(p=>{const y=beenYear(p.from);counts[y]=(counts[y]||0)+1;});
+  let curYear=null;
+  sorted.forEach(p=>{
+    const y=beenYear(p.from);
+    if(y!==curYear){
+      curYear=y;
+      const hd=document.createElement('div');hd.className='been-year';
+      hd.innerHTML='<span class="been-year-label">'+esc(y)+'</span><span class="been-year-count">'+counts[y]+'</span><span class="been-year-line"></span>';
+      c.appendChild(hd);
+    }
+    c.appendChild(makeBeenCard(p));
+  });
 }
 
 // Future
